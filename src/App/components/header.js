@@ -58,6 +58,12 @@ class Header extends Component {
               <Row className="padding-all textcolor-868686 bg-262626">
                 {menuDom}
               </Row>
+              <Row justify={'center'}>
+              <Col span={6} className='text-align-center'><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Col span={6} className='text-align-center'><Icon iconName={'social-octocat '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Col span={6} className='text-align-center'><Icon iconName={'social-twitter '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Col span={6} className='text-align-center'><Icon iconName={'paper-airplane '} size={'200%'} iconColor={ '#fff'} /></Col>
+              </Row>
               </div>),
             type: 'right',
             containerStyle: { right: '0rem', width: pScreenWidth > 750 ? '35vw': '70vw', background: '#262626'},

@@ -212,9 +212,6 @@ class Music extends Component {
 
         return(
           <section className="bg-f5f5f5">
-            <Row  className="padding-all ">
-              <Col span={12} className="line-height-3r font-size-12">Music List</Col>
-            </Row>
             <audio src={theMusic&&theMusic.fileUrl} autoPlay={autoPlay} loop="loop" id="audioPlay" >
             </audio>
             <MusicPlayer options={{
