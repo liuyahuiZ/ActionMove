@@ -8,6 +8,7 @@ import Header from '../components/Header';
 
 import AnimateBanner from '../components/animateBanner';
 import ImageBird from '../components/imageBird';
+import LoadText from '../components/LoadText';
 import { findType } from '../api/index';
 import { articleList } from '../api/article';
 
@@ -21,7 +22,8 @@ class HomeDoc extends Component {
           pageStatus: 'MOBILE',
           activeKey: 'action0',
           activeNum: 0,
-          articleListArr: []
+          articleListArr: [],
+          loadStatus: 'LOADING', //'LOADING', 'ERROR', 'SUCCESS', 'NODATA'
       };
     }
     componentDidMount(){
@@ -55,11 +57,21 @@ class HomeDoc extends Component {
         }).then((res)=>{
             if(res.code=='0000'){
                 this.setState({
-                    articleListArr: res.data.list
+                    articleListArr: res.data.list,
+                    loadStatus: 'SUCCESS',
                 })
-            }
+            }else{
+                this.setState({
+                  articleListArr: [],
+                  loadStatus: 'NODATA'
+                })
+              }
         }).catch((err)=>{
             console.log('err',err)
+            this.setState({
+                articleListArr: [],
+                loadStatus: 'ERROR'
+            })
         })
     }
 
@@ -92,7 +104,7 @@ class HomeDoc extends Component {
             <Col className="padding-all border-bottom border-color-e5e5e5">{itm.title}</Col>
             <Col className="heighth-75 overflow-y-scroll padding-all-1r">
                 <Row>
-                    <Col>{itm.sea} / {itm.user} {itm.createTime}</Col>
+                    <Col>作者 {itm.user} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 </Col>
                     <Col><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
                 </Row>
             </Col>
@@ -104,7 +116,7 @@ class HomeDoc extends Component {
     }
 
     render() {
-        const {pageStatus, containerScrollTop, activeKey, activeNum, articleListArr} = this.state;
+        const {pageStatus, containerScrollTop, activeKey, activeNum, articleListArr, loadStatus} = this.state;
         const self = this;
         let articleDom = articleListArr&&articleListArr.length>0 ? articleListArr.map((itm, idx)=>{
             return (<Col className="textclolor-333 margin-bottom-3r" key={`${idx}-article`}>
@@ -115,7 +127,7 @@ class HomeDoc extends Component {
                     <Col span={4} className='margin-top-2r border-bottom border-color-e5e5e5'></Col>
                 </Row>
             </Col>)
-        }) : ''
+        }) : <LoadText loadTextStatus={loadStatus} refreshBack={this.getArticleList()} ></LoadText>
         return(
           <section className="bg-show images-all heighth-100 width-100 overflow-hide overflow-y-scroll" ref={(r) => { this.$$homeContainer = r; }}>
             <Row >
@@ -124,8 +136,8 @@ class HomeDoc extends Component {
                         <Row className="absolute width-100 top-1 zindex-10" justify="center">
                             <Col span={18} className="bg-000 opacity-8 padding-all border-radius-5f">
                                 <Row className="">
-                                    <Col className={'textcolor-fff text-align-center font-size-large'}>"剑气纵横三万里 , 一剑光寒十九洲"</Col>
-                                    <Col className={'textcolor-fff text-align-center'}>上海小鸟环保</Col>
+                                    <Col className={'textcolor-fff text-align-center font-size-large'}>"不昧本来，太虚明月流辉过"</Col>
+                                    <Col className={'textcolor-fff text-align-center'}>抱元独坐，云去无心，大道无我</Col>
                                     <Col className={'textcolor-fff text-align-center line-height-3r'}>THE BIRD ECO</Col>
                                 </Row>
                             </Col>
