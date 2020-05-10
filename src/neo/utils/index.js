@@ -5,6 +5,7 @@ import * as validFuncs from './validFuncs';
 import * as filter from './filter';
 import * as storage from './storage';
 import * as sessions from './sessions';
+import * as date from './date';
 import fetch from './fetch';
 import { getUrlParam } from './url';
 
@@ -18,5 +19,6 @@ export {
   fetch,
   storage,
   sessions,
-  getUrlParam
+  getUrlParam,
+  date
 };

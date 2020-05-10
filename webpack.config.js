@@ -97,7 +97,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      neo: path.resolve(__dirname, 'src/neo/index')
+      neo: path.resolve(__dirname, 'src/neo/index'),
+      context: path.resolve(__dirname, 'src/App/context')
     }
   }
 }

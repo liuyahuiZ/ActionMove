@@ -7,10 +7,11 @@ import '../style/common.scss';
 import '../style/font.scss';
 import Static from './static';
 import Header from '../components/Header';
+import { ListContext } from  'context';
 
 const { Button, PageTransition } = Components;
 const { HeaderPart } = Parts
-const { sessions } = utils;
+const { sessions, storage } = utils;
 
 class LayOut extends Component {
     constructor(props, context) {
@@ -21,6 +22,7 @@ class LayOut extends Component {
           titleArr: [],
           historyArr:[],
           moving: true,
+          containerScrollTop: storage.getStorage('containerScrollTop') || 0,
       };
     }
     componentDidMount(){
@@ -28,15 +30,17 @@ class LayOut extends Component {
         const histArr = [];
         arr.push(this.props.children);
         histArr.push(this.props.location.pathname);
+        
+        const routeContant = this.$$routeContainer;
+        console.log(routeContant.offsetWidth);
+        sessions.setStorage('screenWidth', routeContant.offsetWidth )
+
         this.setState({
             compontArr: arr,
             historyArr: histArr,
             titleArr: histArr,
             moving: false,
-        })
-        const routeContant = this.$$routeContainer;
-        console.log(routeContant.offsetWidth);
-        sessions.setStorage('screenWidth', routeContant.offsetWidth )
+        }) 
     }
     componentWillReceiveProps(nextProps, nextContext) {
         const { moving, historyArr } = this.state;
@@ -100,7 +104,7 @@ class LayOut extends Component {
     }
     render() {
         const self = this;
-        const {compontArr, titleArr} = this.state;
+        const {compontArr, titleArr, containerScrollTop} = this.state;
         const Action = this.state.action;
         let actionArr = [{action: 'leave', enter: 'doc-leave', leave:'doc-enter' },
         {action: 'enter', enter: 'doc-enter', leave:'doc-leave-end' }];
@@ -117,13 +121,21 @@ class LayOut extends Component {
                 enter={ (compontArr.length ==1) ? actionArr[idx].leave : actionArr[idx].enter}
                 leave={ (compontArr.length ==1) ? actionArr[idx].enter : actionArr[idx].leave}
                 key={`${item.props.location.pathname}-com`}
-                ><div className="pageContent transf pages" style={{zIndex: ZIndex + idx}}>{item}</div>
+                ><div className={`pageContent ${item.props.location.pathname !=='/Home' ? 'has-header': ''} transf pages`} style={{zIndex: ZIndex + idx}}>{item}</div>
                 </PageTransition>);
         });
         return(
             <div ref={(r) => { this.$$routeContainer = r; }}>
-                <Header />
-                {components}
+                <Header pathname={this.props.location.pathname} containerScrollTop={containerScrollTop} />
+                <ListContext.Provider 
+                    value={{
+                        resetScrollTop: (res)=>{ 
+                            self.setState({
+                                containerScrollTop: res, // init , shuldRender noRender'
+                            })
+                        }
+                    }}
+                >{components}</ListContext.Provider >
                 {/* <div className="pageContent transf">{this.props.children}</div> */}
             </div>
         );

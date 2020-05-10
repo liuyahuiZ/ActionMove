@@ -61,7 +61,7 @@ class PlayLyricCtrl extends Component {
         let times = options&&options.lyric.match(/\[.*\]/g);
         let contents = options&&options.lyric.split(/\[.*\]/g);
         let lyricDom = contents&&contents.length > 0 ? contents.map((itm, idx)=>{
-          return <div className={`${self.checkTime(times[idx-1], itm)? 'textcolor-F55936' : 'textclolor-gray'} width-100 `} key={`${idx}-itm`}>{itm}</div>
+          return <div className={`${self.checkTime(times&&times[idx-1], itm)? 'textcolor-F55936' : 'textclolor-gray'} width-100 `} key={`${idx}-itm`}>{itm}</div>
         }) :'';
         return(
          <Row className="relative text-align-center padding-top-1r line-height-2r">

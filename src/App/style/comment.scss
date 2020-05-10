@@ -26,12 +26,12 @@ body{
     width: 100vw;
 }
 .doc-leave {
-    transform: translate3d(100%,0%,0);
+    transform: translate3d(0%,100%,0);
     position: absolute;
     width: 100vw;
 }
 .doc-leave-end {
-    transform: translate3d(-100%,0%,0);
+    transform: translate3d(0%,-100%,0);
     position: absolute;
     width: 100vw;
 }
@@ -62,8 +62,8 @@ body{
 }
 
 .has-header{
-    padding-top: 3rem;
-    height: 100vh;
+    padding-top: 6rem;
+    height: calc(100vh - 6rem);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -360,5 +360,94 @@ body{
     100% {
       transform: translateY(20vw);
       opacity: 0;
+    }
+}
+
+.img-enter{
+    opacity: 1;
+    display: block;
+}
+
+.img-leave{
+    opacity: 0;
+    display: none;
+}
+
+// 背景图片动画
+.move-to-left{
+    position: relative;
+    height: 140vh;
+    animation: move-left  14s;
+}
+.move-to-right{
+    position: relative;
+    height: 140vh;
+    animation: move-right  14s;
+}
+.move-to-top{
+    position: relative;
+    height: 140vh;
+    animation: move-top  14s;
+}
+.move-to-bottom{
+    position: relative;
+    height: 140vh;
+    animation: move-bottom  14s;
+}
+@keyframes move-left {
+    0% {
+      transform: translateX(-10vw);
+      opacity: 0;
+    }
+    20% {
+        transform: translateX(-15vw);
+        opacity: 1;
+    }
+    100% {
+      transform: translateX(-20vw);
+      opacity: 0.5;
+    }
+}
+@keyframes move-right {
+    0% {
+      transform: translateX(-20vw);
+      opacity: 0;
+    }
+    20% {
+        transform: translateX(-15vw);
+        opacity: 1;
+    }
+    100% {
+      transform: translateX(0vw);
+      opacity: 0.5;
+    }
+}
+
+@keyframes move-top {
+    0% {
+      transform: translateY(20vw);
+      opacity: 0;
+    }
+    20% {
+        transform: translateY(15vw);
+        opacity: 1;
+    }
+    100% {
+      transform: translateY(0vw);
+      opacity: 0.5;
+    }
+}
+@keyframes move-bottom {
+    0% {
+      transform: translateY(-20vw);
+      opacity: 0;
+    }
+    20% {
+        transform: translateY(-15vw);
+        opacity: 1;
+    }
+    100% {
+      transform: translateY(0vw);
+      opacity: 0.5;
     }
 }

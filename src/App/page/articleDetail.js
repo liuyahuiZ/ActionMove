@@ -20,7 +20,7 @@ const {
     Panel
   } = Components;
   
-class OcrDoc extends BaseView {
+class ArticleDetail extends BaseView {
     constructor(props) {
       super(props);
       this.state = {
@@ -55,10 +55,7 @@ class OcrDoc extends BaseView {
 
     render() {
         const {article} = this.state;
-        const map1 = [1,2,3,4,5,6,7,8,9,2,3,4,5,1,1,2,3,1,13,1,1,2,3,1,1,3,1,1,3,2,1,1,2,3]
-        // const imgDom = map1.map((itm, idx)=>{
-        //     return (<img src={`http://img.fox800.xyz/images/book_22_chapter_${pageNo}_${idx}.jpg?x-oss-process=image/resize,m_lfit,w_640,limit_0/auto-orient,1/quality,Q_90`} />)
-        // })
+        
         return(
           <section className="bg-show">
             <Header
