@@ -11,7 +11,8 @@ class ImageMove extends Component {
            className: this.props.className,
            style: this.props.style,
            action: this.props.action,
-           display: this.props.action =='enter'? 'show': 'hide'
+           display: this.props.action =='enter'? 'show': 'hide',
+           loadStatus: 'LOADING'
         };
     }
     componentDidMount() {
@@ -19,14 +20,15 @@ class ImageMove extends Component {
     componentWillReceiveProps(nextProps){
         this.setState({
             style : nextProps.style,
-            action: nextProps.action
+            action: nextProps.action,
+            className: nextProps.className
         })
         if(nextProps.action=='leave'){
             setTimeout(()=>{
                 this.setState({
                     display: 'hide'
                 })
-            }, 1000)
+            }, 100)
         } else{
             this.setState({
                 display: 'show'
@@ -36,18 +38,24 @@ class ImageMove extends Component {
 
 
     render() {
-        const { imgName, className, style, action, display } = this.state;
-
-        return (
-            display=='show' ? <PageTransition
+        const { imgName, className, style, action, display, loadStatus  } = this.state;
+        const self = this;
+        return display=='show' ? (
+         <PageTransition
         act={action}
         duration={166}
         enter={`img-enter`}
         leave={`img-leave`}
         >
-        <img className={className} style={style} src={`http://m-mymove.oss-cn-shanghai.aliyuncs.com/${imgName}`} />
-        </PageTransition> : ''
-        );
+        <div className={`width-100 ${loadStatus=='LOADING'? 'img_bg': ''} ${display=='show'? 'hide-out zindex-20':"hide-in zindex-10"}`} >
+        <img onLoad={()=>{ console.log('load complate');
+            self.setState({
+                loadStatus: 'LOADED'
+            })
+        }} className={className} style={style} src={`https://m-mymove.oss-cn-shanghai.aliyuncs.com/${imgName}`} />
+        </div>
+        </PageTransition>
+        ) : '';
     }
 }
 export default ImageMove;

@@ -9,7 +9,7 @@ import Static from './static';
 import Header from '../components/Header';
 import { ListContext } from  'context';
 
-const { Button, PageTransition } = Components;
+const { Button, PageTransition, ErrorBounDary } = Components;
 const { HeaderPart } = Parts
 const { sessions, storage } = utils;
 
@@ -22,7 +22,6 @@ class LayOut extends Component {
           titleArr: [],
           historyArr:[],
           moving: true,
-          containerScrollTop: storage.getStorage('containerScrollTop') || 0,
       };
     }
     componentDidMount(){
@@ -104,7 +103,7 @@ class LayOut extends Component {
     }
     render() {
         const self = this;
-        const {compontArr, titleArr, containerScrollTop} = this.state;
+        const {compontArr, titleArr} = this.state;
         const Action = this.state.action;
         let actionArr = [{action: 'leave', enter: 'doc-leave', leave:'doc-enter' },
         {action: 'enter', enter: 'doc-enter', leave:'doc-leave-end' }];
@@ -126,16 +125,11 @@ class LayOut extends Component {
         });
         return(
             <div ref={(r) => { this.$$routeContainer = r; }}>
-                <Header pathname={this.props.location.pathname} containerScrollTop={containerScrollTop} />
+                { this.props.location.pathname == '/Home'? "": <Header pathname={this.props.location.pathname} containerScrollTop={0} />}
                 <ListContext.Provider 
                     value={{
-                        resetScrollTop: (res)=>{ 
-                            self.setState({
-                                containerScrollTop: res, // init , shuldRender noRender'
-                            })
-                        }
                     }}
-                >{components}</ListContext.Provider >
+                ><ErrorBounDary>{components}</ErrorBounDary></ListContext.Provider >
                 {/* <div className="pageContent transf">{this.props.children}</div> */}
             </div>
         );

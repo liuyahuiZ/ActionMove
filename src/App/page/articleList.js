@@ -1,18 +1,18 @@
 import React , { Component }from 'react';
 import { Components, utils } from 'neo';
-import { hashHistory } from 'react-router';
-import { articleList } from '../api/article';
+import { articleList, typeList } from '../api/article';
 import LoadText from '../components/LoadText';
+import ImageBird from '../components/imageBird';
+import Search from '../components/music/search';
+import PageNation from '../components/pageNation';
+import { showArticleDetail } from '../utils/domUtil';
+import List from '../components/list';
 const {
-    Buttons,
     Toaster,
-    Header,
     Row,
     Col,
     Icon,
-    Modal,
-    Carousel,
-    LoadMore, PopContainer
+    LoadMore, PopContainer, AnTransition
   } = Components;
 const { sessions, storage, date } = utils;
 class PayDoc extends Component {
@@ -23,22 +23,50 @@ class PayDoc extends Component {
           currentPage: 1,
           pageSize: 5,
           articleListArr: [],
-          loadStatus: 'LOADING', //'LOADING', 'ERROR', 'SUCCESS', 'NODATA'
+          loadStatus: 'LOADING', //'LOADING', 'ERROR', 'SUCCESS', 'NODATA',
+          typeListArr: [],
+          typeloadStatus: 'LOADING',
+          pageInfo: {},
+          searchObg: {},
+          activeType: ''
       };
     }
 
     componentDidMount(){
       console.log();
-      this.getArticleList()
+      const { currentPage, pageSize } = this.state
+      this.getArticleList({current: currentPage, pageSize: pageSize });
+      this.getTypeList();
     }
 
-    getArticleList(){
-      articleList({current: 1,pageSize: 5
-      }).then((res)=>{
+    getTypeList(){
+        typeList({}).then((res)=>{
+            if(res.code=='0000'){
+                this.setState({
+                    typeListArr: res.data,
+                    typeloadStatus: 'SUCCESS',
+                })
+            }else{
+              this.setState({
+                typeListArr: [],
+                typeloadStatus: 'NODATA'
+              })
+            }
+        }).catch((err)=>{
+            console.log('err',err)
+            this.setState({
+                typeListArr: [],
+                typeloadStatus: 'ERROR'
+            })
+        })
+    }
+    getArticleList(obg){
+      articleList(obg).then((res)=>{
           if(res.code=='0000'){
               this.setState({
                   articleListArr: res.data.list,
-                  loadStatus: 'SUCCESS',
+                  loadStatus: res.data.list.length==0? 'NODATA': 'SUCCESS',
+                  pageInfo: res.data.pageInfo
               })
           }else{
             this.setState({
@@ -54,47 +82,50 @@ class PayDoc extends Component {
           })
       })
     }
-    
-    showArticleDetail(itm){
-      PopContainer.confirm({
-      content: (<Row>
-          <Col className="padding-all border-bottom border-color-e5e5e5">{itm.title}</Col>
-          <Col className="heighth-75 overflow-y-scroll padding-all-1r">
-              <Row>
-                  <Col>作者 {itm.user} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 </Col>
-                  <Col><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
-              </Row>
-          </Col>
-          <Col className="text-align-center line-height-3r" onClick={()=>{PopContainer.closeAll()}}>关闭</Col>
-          </Row>),
-      type: 'bottom',
-      containerStyle: {},
-      })
-    }
   
     render() {
-        const { articleListArr, enableLoad, loadStatus } = this.state;
-        const listMap = [{ tabName: 'first', content: (<div className="padding-all-1r bg-show"><div className="padding-all-10x bg-FECAAD textclolor-gray-red border-radius-100 ">抢100优惠券</div></div>), isActive: true },
-        { tabName: 'second', content: (<div className="padding-all-1r bg-show"><div className="padding-all-10x bg-F1F8FD textclolor-alink border-radius-100 ">1元秒杀24期免息</div></div>), isActive: false },
-        { tabName: 'thired', content: (<div className="padding-all-1r bg-show"><div className="padding-all-10x bg-F1F8FD textclolor-alink border-radius-100 ">小白卡满1000减30</div></div>), isActive: false }]
+        const { articleListArr, enableLoad, loadStatus, typeListArr, typeloadStatus, pageInfo, currentPage, pageSize, searchObg, activeType } = this.state;
         const self = this;
-        let articleDom = articleListArr&&articleListArr.length>0 ? articleListArr.map((itm, idx)=>{
-          return (<Col className="textclolor-333 margin-bottom-3r" key={`${idx}-article`}>
-              <Row justify={'center'}>
-                  <Col className='textclolor-333 font-size-big' onClick={()=>{self.showArticleDetail(itm)}}>{itm.title}</Col>
-                  <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {itm.user} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 </Col>
-                  <Col className='textclolor-333 font-size-normal'>{itm.info}</Col>
-                  <Col span={4} className='margin-top-2r border-bottom border-color-e5e5e5'></Col>
-              </Row>
-          </Col>)
-      }) : <LoadText loadTextStatus={loadStatus} refreshBack={this.getArticleList()} ></LoadText>
+        let typeDom = typeListArr&&typeListArr.length>0 ? typeListArr.map((itm, idx)=>{
+            return (<Col span={6} className={` textclolor-333 margin-bottom-3r relative margin-right-1r padding-all-1r border-radius-5f overflow-hide cursor-pointer`} key={`${idx}-article`}
+            onClick={()=>{
+                let typeValue = itm.typeValue
+                let searchObg = { type: itm.typeValue}
+                if(activeType==itm.typeValue){
+                    typeValue = ''
+                    searchObg = {}
+                }
+                self.setState({
+                    activeType: typeValue,
+                    searchObg: searchObg
+                }, ()=>{
+                    self.getArticleList({current: 1, pageSize: pageSize, searchObg: searchObg })
+                })
+            }}>
+                <Row justify={'center'} className='relative'>
+                    <Col className={`${activeType== itm.typeValue ? 'textcolor-fff': 'textcolor-333'} font-size-large zindex-20 cursor-pointer`} onClick={()=>{}}>{itm.typeKey}</Col>
+                    <Col className='textcolor-fff font-size-small margin-top-1r zindex-20'>{itm.remark} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')} </Col>
+                </Row>
+                <div className={` absolute top-0 left-0 border-radius-5f overflow-hide heightp-100 margin-top-2r`}>
+                <ImageBird imgName={itm.imgGroup}  /></div>
+            </Col>)
+        }) : <LoadText loadTextStatus={typeloadStatus} refreshBack={()=>{this.getTypeList()}} ></LoadText>
 
         return(
-          <LoadMore enableLoad={enableLoad} percent={20}  loadfunc={()=>{this.loadmore()}} className="bg-f5f5f5">
-            <Row justify='center' className="padding-all-2r">
-              <Col>{articleDom}</Col>
-            </Row>
-          </LoadMore>
+        <Row justify='center'>
+            <Col span={20}><Row justify='center'>{typeDom}</Row></Col>
+            <Col span={14} className="margin-bottom-3r"><Search callBack={(k)=>{
+                    console.log(k);
+                    self.getArticleList({current: 1, pageSize: pageSize, searchObg: searchObg, keyWord: k});
+                }} /></Col>
+            <Col span={20}><List articlesArr={articleListArr} loadStatus={loadStatus} /></Col>
+            <Col span={14}><PageNation getData={(pageNum)=>{
+                self.setState({
+                    currentPage: pageNum
+                },()=>{ self.getArticleList({current: pageNum, pageSize: pageSize, searchObg: searchObg }) })
+                
+            }} pageInfo={pageInfo} /></Col>
+        </Row>
         );
     }
 }

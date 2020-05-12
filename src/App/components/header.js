@@ -27,7 +27,6 @@ class Header extends Component {
     componentDidMount() {
     }
     componentWillReceiveProps(nextProps){
-        console.log('nextProps.containerScrollTop', nextProps.containerScrollTop)
         this.setState({
             containerScrollTop: nextProps.containerScrollTop
         })
@@ -36,7 +35,6 @@ class Header extends Component {
     doSheet1(screenWidth){
         const { location, containerScrollTop, menu, activeKey } = this.state;
         let pScreenWidth = screenWidth;
-        console.log(screenWidth, pScreenWidth);
         const self = this;
         let menuDom = menu&&menu.length > 0 ? menu.map((itm, idx)=>{
             return (<Col span={24} key={`${idx}-men`} className={`${itm.path == activeKey ? 'menu-default':'menu-active'} transf text-align-center  line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
@@ -53,7 +51,7 @@ class Header extends Component {
 
         PopContainer.confirm({
             content: (<div className="bg-262626 ">
-                <div className='width-100 text-align-right' onClick={()=>{PopContainer.closeAll()}}>
+                <div className='width-100 text-align-right cursor-pointer' onClick={()=>{PopContainer.closeAll()}}>
                 <Icon iconName={'close-circled'} size={'200%'} iconColor={ '#fff'} /></div>
               <Row className="padding-all textcolor-868686 bg-262626">
                 {menuDom}
@@ -78,7 +76,6 @@ class Header extends Component {
 
     render() {
         const { screenWidth, location, containerScrollTop } = this.state;
-        console.log('containerScrollTop', containerScrollTop);
         return(
             <div className='heighr-6 overflow-hide width-100 top-0 fixed zindex-20'>
             <Row className={`relative textcolor-868686 line-height-2r padding-left-2r padding-right-2r `}>
@@ -87,12 +84,13 @@ class Header extends Component {
                     onClick={()=>{this.doSheet1()}}/> */}
                 </Col>
                 <Col span={12} className='text-align-center'>
-                    <ImageMove  className="middle-round-6 display-inline-block" imgName='logo_b.png' />
+                   <ImageMove  className={`middle-round-6 display-inline-block ${containerScrollTop > 500 ? 'hide-in': 'hide-out'}`} imgName='logo_b.png' />
                 </Col>
-                <Col span={6} className="relative text-align-right padding-top-1r zindex-20" onClick={()=>{this.doSheet1(screenWidth)}}>
-                    <Icon iconName={'navicon '} size={'240%'} iconColor={ containerScrollTop > 500 ? "#868686": '#fff'}  />
+                <Col span={6} className="relative text-align-right padding-top-1r zindex-20 cursor-pointer" onClick={()=>{this.doSheet1(screenWidth)}}>
+                    { containerScrollTop > 500 ? <Icon iconName={'navicon '} size={'240%'} iconColor={"#333"}  />: 
+                <Icon iconName={'navicon '} size={'240%'} iconColor={location!=='Home'? '#333' :"#fff"}  /> }
                 </Col>
-                <Col className={`${ containerScrollTop > 500 ? 'bghand' : 'bgtrans'} heighr-6  absolute left-0 top-0`}></Col>
+                {/* <Col className={`${ containerScrollTop > 500 ? 'bghand' : 'bgtrans'} heighr-6  absolute left-0 top-0`}></Col> */}
             </Row>
             </div>
         );

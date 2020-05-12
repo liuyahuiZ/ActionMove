@@ -2,15 +2,17 @@ import ReactDOM from 'react-dom';
 import React , { Component }from 'react';
 import { Components, utils } from 'neo';
 import { hashHistory } from 'react-router';
-const { Row, Col, Icon, ActionSheet, Buttons, Carousel, PopContainer } = Components;
+const { Row, Col, Icon, ActionSheet, Buttons, AnTransition, PopContainer } = Components;
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 import AnimateBanner from '../components/animateBanner';
 import ImageBird from '../components/imageBird';
 import LoadText from '../components/LoadText';
+import List from '../components/list';
+import { showArticleDetail } from '../utils/domUtil';
 import { findType } from '../api/index';
-import { articleList } from '../api/article';
+import { articleList, articleListForType } from '../api/article';
 
 const { sessions, storage, date } = utils;
 class HomeDoc extends Component {
@@ -23,7 +25,10 @@ class HomeDoc extends Component {
           activeKey: 'action0',
           activeNum: 0,
           articleListArr: [],
-          loadStatus: 'LOADING', //'LOADING', 'ERROR', 'SUCCESS', 'NODATA'
+          loadStatus: 'LOADING', //'LOADING', 'ERROR', 'SUCCESS', 'NODATA',
+          typeListArr: [],
+          typeloadStatus: 'LOADING',
+          isPhone: sessions.getStorage('screenWidth') < 800 
       };
     }
     componentDidMount(){
@@ -41,7 +46,8 @@ class HomeDoc extends Component {
             })
         })
         this.findAllType();
-        this.getArticleList()
+        this.getArticleList();
+        this.getArticleListForType()
     }
 
     findAllType(){
@@ -75,11 +81,33 @@ class HomeDoc extends Component {
         })
     }
 
+    getArticleListForType(){
+        articleListForType({}).then((res)=>{
+            if(res.code=='0000'){
+                this.setState({
+                    typeListArr: res.data,
+                    typeloadStatus: 'SUCCESS',
+                })
+            }else{
+                this.setState({
+                    typeListArr: [],
+                    typeloadStatus: 'NODATA'
+                })
+              }
+        }).catch((err)=>{
+            console.log('err',err)
+            this.setState({
+                typeListArr: [],
+                typeloadStatus: 'ERROR'
+            })
+        })
+    }
+
     checkActive(top){
         let arr = ['action0','action1', 'action2'];
-        const actNum = 200;
+        const actNum = 100;
         for(let i=0;i<arr.length;i++){
-            if(top> (this[`$$${arr[arr.length-1]}`].offsetTop )){
+            if(top> (this[`$$${arr[arr.length-1]}`].offsetTop + actNum)){
                 this.setState({
                     activeKey: arr[arr.length-1],
                     activeNum: arr.length
@@ -87,7 +115,7 @@ class HomeDoc extends Component {
             } else{
                 let pre =  this[`$$${arr[i]}`];
                 let next = this[`$$${arr[i+1]}`];
-                if(top> (pre.offsetTop)&&top < next.offsetTop){
+                if(top> (pre.offsetTop + actNum)&&top < (next.offsetTop+ actNum)){
                     this.setState({
                         activeKey: arr[i],
                         activeNum: i+1
@@ -98,38 +126,48 @@ class HomeDoc extends Component {
 
     }
 
-    showArticleDetail(itm){
-        PopContainer.confirm({
-        content: (<Row>
-            <Col className="padding-all border-bottom border-color-e5e5e5">{itm.title}</Col>
-            <Col className="heighth-75 overflow-y-scroll padding-all-1r">
-                <Row>
-                    <Col>作者 {itm.user} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 </Col>
-                    <Col><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
-                </Row>
-            </Col>
-            <Col className="text-align-center line-height-3r" onClick={()=>{PopContainer.closeAll()}}>关闭</Col>
-            </Row>),
-        type: 'bottom',
-        containerStyle: {},
-        })
-    }
+
 
     render() {
-        const {pageStatus, containerScrollTop, activeKey, activeNum, articleListArr, loadStatus} = this.state;
+        const {pageStatus, containerScrollTop, activeKey, activeNum, articleListArr, loadStatus, typeListArr, typeloadStatus, isPhone} = this.state;
         const self = this;
-        let articleDom = articleListArr&&articleListArr.length>0 ? articleListArr.map((itm, idx)=>{
-            return (<Col className="textclolor-333 margin-bottom-3r" key={`${idx}-article`}>
-                <Row justify={'center'}>
-                    <Col className='textclolor-333 font-size-big' onClick={()=>{self.showArticleDetail(itm)}}>{itm.title}</Col>
-                    <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {itm.user} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 </Col>
-                    <Col className='textclolor-333 font-size-normal'>{itm.info}</Col>
+
+        let typeDom = typeListArr&&typeListArr.length>0 ? typeListArr.map((itm, idx)=>{
+            return (<Row><Col className="textclolor-333 margin-bottom-3r" key={`${idx}-article`}>
+                <Row justify={'center'} className='relative'>
+                    <Col className='textclolor-333 font-size-huge zindex-20 line-height-3r' >{itm.info.typeKey}</Col>
+                    <Col className='textclolor-333 font-size-small zindex-20 '>{itm.info.remark}</Col>
+                    <Col span={24} className="absolute top-0 left-0 border-radius-5f overflow-hide margin-top-1r heighr-6"><ImageBird imgName={itm.info.imgGroup} /></Col>
+                    
+                    <Col className='textclolor-333 margin-top-5r'>
+                        <Row>{itm.articleList&&itm.articleList.length>0 ? 
+                            itm.articleList.map((ait, aidx)=>{
+                                let paddStyle = ''
+                                if((aidx+1)%3 == 1){
+                                    paddStyle = 'padding-right-1r'
+                                }
+                                if((aidx+1)%3 == 0) {
+                                    paddStyle = 'padding-left-1r'
+                                }
+                                if(isPhone) paddStyle=''
+                               return( <Col span={ isPhone ? 24: 8} className={`${paddStyle} margin-bottom-1r`} key={`${aidx}-article`}>
+                                    <Row justify={'center'} className="padding-all-1r bg-show border-radius-5f overflow-hide">
+                                        <Col className='textclolor-333 font-size-big cursor-pointer text-overflow' onClick={()=>{showArticleDetail(ait)}}>{ait.title}</Col>
+                                        <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {ait.user} / 发布于 {date.format(ait.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 </Col>
+                                        <Col className='textclolor-333 font-size-normal info-text-overflow'>{ait.info}</Col>
+                                        <Col span={4} className='margin-top-2r border-bottom border-color-e5e5e5'></Col>
+                                    </Row>
+                                </Col>)
+                            }) : ''}</Row>
+                    </Col>
+
                     <Col span={4} className='margin-top-2r border-bottom border-color-e5e5e5'></Col>
                 </Row>
-            </Col>)
-        }) : <LoadText loadTextStatus={loadStatus} refreshBack={this.getArticleList()} ></LoadText>
+            </Col></Row>)
+        }) : <LoadText loadTextStatus={typeloadStatus} refreshBack={()=>{}} ></LoadText>
         return(
           <section className="bg-show images-all heighth-100 width-100 overflow-hide overflow-y-scroll" ref={(r) => { this.$$homeContainer = r; }}>
+            <Header pathname={this.props.location.pathname} containerScrollTop={containerScrollTop} />
             <Row >
                 <Col className="relative heighth-100 zindex-10" >
                     <div ref={(r) => { this.$$action0 = r; }}>
@@ -170,28 +208,20 @@ class HomeDoc extends Component {
                     <Row className={"margin-top-3r"} justify="center">
                         <Col span={18} className="">
                             <div className="width-100 textcolor-288767 text-align-center font-size-large">热门博客</div>
-                            <div className={`${containerScrollTop > 200 ? 'bottom-in' : 'bottom-out'} font-size-9 line-height-1f margin-top-5r `}>
-                                <Row>{articleDom}</Row>
+                            <div className={`${activeNum > 0 ? 'bottom-in' : 'bottom-out'} font-size-9 line-height-1f margin-top-5r `}>
+                                <List articlesArr={articleListArr} loadStatus={loadStatus} />
                             </div>
                         </Col>
                     </Row>
                     </div>
                     <div ref={(r) => { this.$$action2 = r; }}>
-                    <Row className={"margin-top-5r"} justify="center">
+                    <Row className={"margin-top-5r bg-f5f5f5"} justify="center">
                         <Col span={18}  className={`${activeNum > 1 ? 'bottom-in' : 'bottom-out'}`}>
-                            <div className="width-100 textcolor-288767 font-size-large text-align-center">博客分类</div>
-                            <div className="width-100 text-align-center"><ImageBird imgName='hengxian.png' /></div>
-                            <div className="width-100 font-size-9 line-height-3r text-align-center ">XLJ型分散式生活垃圾无害化减量设备</div>
+                            <div className="width-100 textcolor-288767 font-size-large text-align-center margin-top-3r">博客分类</div>
+                            <div className="width-100 text-align-center"></div>
                         </Col>
                         <Col span={18} className={`${activeNum > 1 ? 'bottom-in' : 'bottom-out'} margin-top-2r margin-bottom-2r`}>
-                            <Row justify="center">
-                                <Col span={22}><ImageBird className="width-100 " imgName='product.png' /></Col>
-                                <Col className="font-size-9 margin-top-1r">
-                                <div className="width-100 font-size-9 line-height-1f">在国外，农村与城市一样卫生清洁， 环境优美，农民居住的房屋，虽然旁边就是稻田、菜田，但没有尘土飞扬，四周也不见塑料袋、餐厨垃圾等垃圾山，院子里花草摇曳，景色怡人，令人向往。</div>
-                                <div className="width-100 font-size-9 line-height-1f">秉持着让中国村镇居民也生活在 “蓝天白云，水清林绿，鸟语花香” 宜居环境的信念，【小鸟环保】团队通过技术攻关，为“美丽乡村建 设”提供技术先进、经济实用的垃圾减量解决方案。</div>
-                                </Col>
-                                
-                            </Row>
+                            {typeDom}
                         </Col>
                     </Row>
                     </div>

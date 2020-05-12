@@ -35,6 +35,7 @@ import Menu from './Menu/menu';
 import PopOver from './PopOver';
 import Text from './Text';
 import VerifyCode from './VerifyCode';
+import AnTransition from './AnTransition';
 import PageTransition from './PageTransition';
 import List from './List';
 import Item from './List/item';
@@ -58,6 +59,8 @@ import RandomNumber from './RandomNumber';
 import Picker from './Picker';
 import Step from './Step';
 import TagRadio from './TagRadio';
+import ErrorBounDary from './ErrorBounDary';
+import Notification from "./Notification";
 import * as Tables from './Table';
 
 const { Table, TableRowColumn, TableRow, TableHeaderRow } = Tables;
@@ -92,6 +95,7 @@ export {
   FileUp,
   Icon,
   LabelGroup,
+  AnTransition,
   Label,
   Tree,
   MyTree,
@@ -126,5 +130,7 @@ export {
   Step,
   Picker,
   TagRadio,
+  ErrorBounDary,
+  Notification,
   ExModal
 };

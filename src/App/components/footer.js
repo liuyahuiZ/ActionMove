@@ -31,16 +31,11 @@ class Footer extends Component {
                             <Row justify="center">
                                 <Col span={8}>
                                     <div className="width-100 relative text-align-left line-height-3r">关于</div>
-                                    <div className="width-100 relative text-align-left line-height-2r">商务合作：bird@time.com</div>
-                                    <div className="width-100 relative text-align-left line-height-2r">客服电话：021-54930202</div>
-                                    <div className="width-100 relative text-align-left line-height-2r">工作时间：9:30-18:30</div>
+                                    <div className="width-100 relative text-align-left line-height-2r"></div>
                                 </Col>
                                 <Col span={16}>
                                     <div className="width-100 line-height-3r"></div>
-                                    <div className="width-100 line-height-2r font-size-8">上海小鸟投资管理有限公司（小鸟投资）成立于2015年5月20日。<br/>
-公司坐落于全国科技、贸易、信息、金融和航运中心上海。<br/>
-上海小鸟环保科技有限公司（小鸟环保）是小鸟投资旗下的控股公司。<br/>
-“小鸟环保”是一家致力于生活垃圾无害化处理，餐厨垃圾资源化利用以及餐饮废水处理技术研发、设备生产与技术服务为一体的企业。</div>
+
                                 </Col>
                                 
                             </Row>

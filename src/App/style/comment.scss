@@ -58,6 +58,7 @@ body{
     width: 100vw;
     min-height: 100vh;
     overflow: auto;
+    background: #f5f5f5;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -363,6 +364,15 @@ body{
     }
 }
 
+.info-text-overflow{
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 4.5rem;
+    line-height: 1.5rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
 .img-enter{
     opacity: 1;
     display: block;
@@ -373,25 +383,37 @@ body{
     display: none;
 }
 
+.hide-in{
+    background: transparent;
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.hide-out{
+    background: transparent;
+    transition: all 0.3s;
+    opacity: 1;
+}
+
 // 背景图片动画
 .move-to-left{
     position: relative;
-    height: 140vh;
+    height: 160vh;
     animation: move-left  14s;
 }
 .move-to-right{
     position: relative;
-    height: 140vh;
+    height: 160vh;
     animation: move-right  14s;
 }
 .move-to-top{
     position: relative;
-    height: 140vh;
+    height: 160vh;
     animation: move-top  14s;
 }
 .move-to-bottom{
     position: relative;
-    height: 140vh;
+    height: 160vh;
     animation: move-bottom  14s;
 }
 @keyframes move-left {

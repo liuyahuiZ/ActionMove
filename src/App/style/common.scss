@@ -26,6 +26,7 @@ div{box-sizing:border-box;-webkit-tap-highlight-color:rgba(255,255,255,0)}
 .text-align-right{text-align: right;}
 /*text-overflow*/
 .text-overflow{overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.white-space-inherit{ white-space: inherit}
 /*overflow-hidden*/
 .overflow-hide{overflow: hidden;}
 .overflow-x-scroll{overflow-x: auto;}
@@ -43,6 +44,9 @@ div{box-sizing:border-box;-webkit-tap-highlight-color:rgba(255,255,255,0)}
 .zindex-20{z-index: 20;}
 .zindex-100{z-index: 100;}
 .zindex-d10{z-index: -10;}
+.cursor-pointer{
+   cursor:  pointer  
+}
 
 $opacity-list:1,2,3,4,5,6,7,8,9;
 @each $opacity in $opacity-list{
@@ -54,7 +58,7 @@ $animal-list:3,6,9,100;
 @each $animal in $animal-list{
 .border-radius-#{$animal}{border-radius:#{$animal}px;}
 }
-$animalr-list:3,6,9,10;
+$animalr-list:1,2,3,6,9,10;
 @each $animal in $animalr-list{
 .border-radius-#{$animal}r{border-radius:#{$animal}rem;}
 }

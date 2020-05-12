@@ -21,6 +21,8 @@ class AnimateBanner extends Component {
         this.move()
     }
 
+    componentWillReceiveProps(){
+    }
     move() {
         const arr = this.state.options;
         let dotNum = this.state.dotNum;
@@ -31,7 +33,7 @@ class AnimateBanner extends Component {
             if (dotNum === arr.length) {
               dotNum = 0;
             }
-        }, 8000);
+        }, 7000);
     }
 
     changeActive(dotNum){
