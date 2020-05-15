@@ -37,9 +37,9 @@ class Header extends Component {
         let pScreenWidth = screenWidth;
         const self = this;
         let menuDom = menu&&menu.length > 0 ? menu.map((itm, idx)=>{
-            return (<Col span={24} key={`${idx}-men`} className={`${itm.path == activeKey ? 'menu-default':'menu-active'} transf text-align-center  line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
-                <div className={` textcolor-6C727C font-size-14 cursor-pointer border-radius-9r`} 
-                style={itm.path == activeKey ? { 'textDecoration': 'line-through', 'color': '#fff', 'fontSize': '160%' } : { 'color': '#000', 'fontSize': '140%' } }
+            return (<Col span={24} key={`${idx}-men`} className={`${itm.path == activeKey ? 'menu-active':'menu-default'} transf text-align-center line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
+                <div className={` textcolor-6C727C font-size-14 cursor-pointer border-radius-9r menu-hover`} 
+                style={itm.path == activeKey ? { 'textDecoration': 'line-through', 'fontSize': '160%' } : { 'fontSize': '140%' } }
                  onClick={()=>{ self.setState({'activeKey': itm.path});
                  goLink(itm.path);
                  PopContainer.closeAll()
@@ -56,11 +56,11 @@ class Header extends Component {
               <Row className="padding-all textcolor-868686 bg-262626">
                 {menuDom}
               </Row>
-              <Row justify={'center'}>
-              <Col span={6} className='text-align-center'><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
-              <Col span={6} className='text-align-center'><Icon iconName={'social-octocat '} size={'200%'} iconColor={ '#fff'} /></Col>
-              <Col span={6} className='text-align-center'><Icon iconName={'social-twitter '} size={'200%'} iconColor={ '#fff'} /></Col>
-              <Col span={6} className='text-align-center'><Icon iconName={'paper-airplane '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Row justify={'center'} className='margin-top-5r padding-all-2r'>
+              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-octocat '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-twitter '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'paper-airplane '} size={'200%'} iconColor={ '#fff'} /></Col>
               </Row>
               </div>),
             type: 'right',

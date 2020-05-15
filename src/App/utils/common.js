@@ -31,4 +31,28 @@ export function goLink(link, itm){
         query: itm || ''
       });
     }
-  }
+}
+
+function randomString (len) {
+    len = len || 32;
+    let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+    let maxPos = $chars.length;
+    let pwd = '';
+    for (let i = 0; i < len; i++) {
+      pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
+}
+
+export function getUser(){
+    let user = storage.getStorage('userClient');
+    if(user) {
+      return user
+    }
+    let tmp_name = (Date.parse(new Date())/1000);
+    let userid = 'user-' + tmp_name + '-' + (Math.round(Math.random()*9999));
+    let username = randomString(5);
+    let userClient = userid + username;
+    storage.setStorage('userClient', userClient);
+    return userClient;
+}

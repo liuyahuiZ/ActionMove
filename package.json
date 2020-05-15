@@ -9,6 +9,7 @@
     "lodash": "^4.17.10",
     "object-assign": "^3.0.0",
     "react": "^16.0.0",
+    "react-keep-alive": "^2.5.2",
     "reactjs-swiper": "^0.1.0",
     "webpack-cli": "^2.1.2"
   },

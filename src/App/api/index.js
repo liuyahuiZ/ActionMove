@@ -120,3 +120,36 @@ export function updateUser(reqbody){
         })
     })
 }
+
+export function bannerList(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'banner/bannerList',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
+export function addAccessLog(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'accessLog/addLog',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
+export function logCount(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'accessLog/logCount',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}

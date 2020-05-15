@@ -1,5 +1,6 @@
 import React , { Component }from 'react';
 import { Components, utils } from 'neo';
+import { logCount } from '../api/index';
 const { Row, Col, Icon } = Components;
 
 const { sessions, storage } = utils;
@@ -9,10 +10,22 @@ class Footer extends Component {
       super(props);
       this.state = {
          pageStatus: this.props.pageStatus,
-         screenWidth: sessions.getStorage('screenWidth')
+         screenWidth: sessions.getStorage('screenWidth'),
+         allAccess: 0
       };
     }
     componentDidMount() {
+        this.getLogCount()
+    }
+
+    getLogCount(){
+        logCount({}).then((res)=>{
+            console.log('res',res)
+            this.setState({
+                allAccess: res.data.total
+            })
+        }).catch(()=>{
+        })
     }
     
     handleClick(link) {
@@ -22,19 +35,30 @@ class Footer extends Component {
     }
 
     render() {
-        const { pageStatus, screenWidth } = this.state;
+        const { pageStatus, screenWidth, allAccess } = this.state;
         return(
-            <Row className='bg-333 opacity-8'>
-                <Col className=" padding-bottom-1r bg-F6F6F6 relative">
+            <Row className='bg-333 opacity-9'>
+                <Col className=" padding-bottom-1r  relative">
                     <Row className="zindex-10 padding-bottom-1r margin-bottom-3r relative " justify="center">
-                        <Col  span={14} className="margin-top-3r ">
+                        <Col  span={18} className="margin-top-3r ">
+                            <div className="width-100 relative text-align-left line-height-3r textcolor-fff">关于</div>
                             <Row justify="center">
-                                <Col span={8}>
-                                    <div className="width-100 relative text-align-left line-height-3r">关于</div>
-                                    <div className="width-100 relative text-align-left line-height-2r"></div>
+                                <Col span={8} className='textclolor-black-low'>
+                                    <Row className='line-height-2r font-size-small'>
+                                        <Col span={4} className="text-align-center"><Icon iconName={'android-happy '} size={'200%'} iconColor={ '#fff'} /></Col>
+                                        <Col span={19}>Mr.Andsen</Col>
+                                        <Col span={4} className="text-align-center"><Icon iconName={'android-mail '} size={'180%'} iconColor={ '#fff'} /></Col>
+                                        <Col span={19}>Mliuyahui991@gmail.com</Col>
+                                        <Col span={4} className="text-align-center"><Icon iconName={'android-phone-portrait '} size={'200%'} iconColor={ '#fff'} /></Col>
+                                        <Col span={19}>13162698677</Col>
+                                        <Col span={4} className="text-align-center"><Icon iconName={'clock '} size={'200%'} iconColor={ '#fff'} /></Col>
+                                        <Col span={19}>{allAccess}</Col>
+                                    </Row>
                                 </Col>
                                 <Col span={16}>
-                                    <div className="width-100 line-height-3r"></div>
+                                    <div className="width-100 line-height-2r font-size-small textclolor-black-low">
+                                    <p>90后，技术宅，前端狂热爱好者，设计爱好者，动漫迷，游戏爱好者，目前所在地 上海浦东<br/>技术栈 ：web前端，UI设计，nodejs koa2 mongodb ，react ，vue，ReactNative <br/>GitHub个人主页地址： https://github.com/liuyahuiZ<br/>站酷个人主页地址：http://paoying.zcool.com.cn<br/></p>
+                                    </div>
 
                                 </Col>
                                 

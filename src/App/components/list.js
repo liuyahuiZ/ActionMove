@@ -36,13 +36,13 @@ class List extends Component {
               key={`${idx}-ops`}
           ><Col className="textclolor-333 margin-bottom-3r" >
                 <Row justify={'center'}>
-                    <Col span={20}><Row>
+                    <Col span={18}><Row className="padding-right-1r">
                       <Col className='textclolor-333 font-size-big cursor-pointer' onClick={()=>{showArticleDetail(itm)}}>{itm.title}</Col>
-                      <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {itm.user} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 {itm.type}</Col>
+                      <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {itm.user} / 发布于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD ')}  / 查看 {itm.sea} / 属于 {itm.type}</Col>
                       <Col className='textclolor-333 font-size-normal'>{itm.info}</Col>
                       </Row>
                     </Col>
-                    <Col span={4}><ImageBird imgName={itm.imgGroup}  /></Col>
+                    <Col span={6}><ImageBird imgName={itm.imgGroup}  /></Col>
                     <Col span={4} className='margin-top-2r border-bottom border-color-e5e5e5'></Col>
                 </Row>
             </Col></AnTransition>)

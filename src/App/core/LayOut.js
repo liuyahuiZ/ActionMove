@@ -8,7 +8,9 @@ import '../style/font.scss';
 import Static from './static';
 import Header from '../components/Header';
 import { ListContext } from  'context';
-
+import { Provider, KeepAlive } from 'react-keep-alive'
+import { addAccessLog } from '../api/index';
+import { getUser } from '../utils/common'
 const { Button, PageTransition, ErrorBounDary } = Components;
 const { HeaderPart } = Parts
 const { sessions, storage } = utils;
@@ -40,6 +42,7 @@ class LayOut extends Component {
             titleArr: histArr,
             moving: false,
         }) 
+        this.addLog()
     }
     componentWillReceiveProps(nextProps, nextContext) {
         const { moving, historyArr } = this.state;
@@ -66,7 +69,12 @@ class LayOut extends Component {
             this.changeContent('leave', nextProps)
         }
     }
-    
+    addLog(){
+        addAccessLog({client: navigator.userAgent, info: '', user: getUser()}).then((res)=>{
+            console.log('res',res)
+        }).catch(()=>{
+        })
+    }
     changeContent(action, nextProps){
         const self = this;
         const arr = this.state.compontArr;
@@ -88,7 +96,7 @@ class LayOut extends Component {
             const titArr = this.state.titleArr;
             arr.shift();
             titArr.shift();
-            let child = React.cloneElement(arr[0], { pageIn: '' });
+            let child =  React.cloneElement(arr[0], { pageIn: 'pageOut' });
             self.setState({
                 compontArr: [child],
                 titleArr:titArr,
@@ -120,7 +128,8 @@ class LayOut extends Component {
                 enter={ (compontArr.length ==1) ? actionArr[idx].leave : actionArr[idx].enter}
                 leave={ (compontArr.length ==1) ? actionArr[idx].enter : actionArr[idx].leave}
                 key={`${item.props.location.pathname}-com`}
-                ><div className={`pageContent ${item.props.location.pathname !=='/Home' ? 'has-header': ''} transf pages`} style={{zIndex: ZIndex + idx}}>{item}</div>
+                >
+                <div className={`pageContent ${item.props.location.pathname !=='/Home' ? 'has-header': ''} transf pages`} style={{zIndex: ZIndex + idx}}>{item}</div>
                 </PageTransition>);
         });
         return(
@@ -129,7 +138,11 @@ class LayOut extends Component {
                 <ListContext.Provider 
                     value={{
                     }}
-                ><ErrorBounDary>{components}</ErrorBounDary></ListContext.Provider >
+                >
+                <Provider><KeepAlive name={this.props.location.pathname|| 'home'}>
+                <ErrorBounDary>{components}</ErrorBounDary>
+                </KeepAlive></Provider>
+              </ListContext.Provider >
                 {/* <div className="pageContent transf">{this.props.children}</div> */}
             </div>
         );

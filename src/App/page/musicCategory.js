@@ -33,9 +33,9 @@ class MusicCategory extends BaseView {
             confirmDirty: false,
             categoryList: sessions.getStorage('categoryList')||[],
             loadText: '加载中',
-            wxConfig: sessions.getStorage('WXCONFIG') || {},
             hasCard: "LOADING", // LOADING ,  HASCARD, NULLCARD
-            keyWords: ""
+            keyWords: "",
+            isPhone: sessions.getStorage('screenWidth') < 800 
         };
     }
     _viewAppear(){
@@ -100,10 +100,10 @@ class MusicCategory extends BaseView {
     }
 
     render(){
-        const { categoryList, musicList } = this.state;
+        const { categoryList, isPhone, musicList } = this.state;
         const self = this;
         let cateGoryDom = categoryList&&categoryList.length > 0 ? categoryList.map((itm, idx)=>{
-            return (<Col span={12} className={'padding-all-3x margin-bottom-1r '} key={`${idx}-itm`} onClick={()=>{self.getMusicList(itm)}}>
+            return (<Col span={isPhone? 12 :6} className={'padding-all-3x margin-bottom-1r '} key={`${idx}-itm`} onClick={()=>{self.getMusicList(itm)}}>
             <Row className="border-radius-5f padding-bottom-3 bg-show overflow-hide">
                 <Col span={24} className={"font-size-8"}><img alt="text" className="width-100" src={itm.coverImgUrl} /></Col>
                 <Col span={24} className={"font-size-8 text-overflow padding-all"}>{itm.name}</Col>

@@ -40,14 +40,14 @@ class ImageMove extends Component {
     render() {
         const { imgName, className, style, action, display, loadStatus  } = this.state;
         const self = this;
-        return display=='show' ? (
+        return  (
          <PageTransition
         act={action}
         duration={166}
         enter={`img-enter`}
         leave={`img-leave`}
         >
-        <div className={`width-100 ${loadStatus=='LOADING'? 'img_bg': ''} ${display=='show'? 'hide-out zindex-20':"hide-in zindex-10"}`} >
+        <div className={`width-100 relative ${loadStatus=='LOADING'? 'img_bg': ''} ${display=='show'? 'hide-out zindex-20':"hide-in zindex-10"}`} >
         <img onLoad={()=>{ console.log('load complate');
             self.setState({
                 loadStatus: 'LOADED'
@@ -55,7 +55,7 @@ class ImageMove extends Component {
         }} className={className} style={style} src={`https://m-mymove.oss-cn-shanghai.aliyuncs.com/${imgName}`} />
         </div>
         </PageTransition>
-        ) : '';
+        ) ;
     }
 }
 export default ImageMove;

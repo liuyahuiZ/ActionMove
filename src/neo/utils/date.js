@@ -30,6 +30,10 @@ export function format(date, fmt) {
   return fmt;
 }
 
+export function momentFormate(date, fmt){
+  return moment(date).format(fmt||'YYYY-MM-DD')
+}
+
 export function isDate(value) {
   return getType(value) === 'date';
 }

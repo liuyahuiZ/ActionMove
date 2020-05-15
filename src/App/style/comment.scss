@@ -9,6 +9,9 @@ body{
     width: 100%;
     height: 100vh;
 }
+p{
+    margin: 0;
+}
 .doc{ padding: 0.5rem;}
 .doc h2{font-size: 25px;color: #333;font-weight: 400;
     font-family: Lato,Helvetica Neue For Number,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;}
@@ -178,8 +181,8 @@ body{
 .music-round{
     background: #333;
     border:5px solid rgba(0,0,0,0.4);
-    width: 60vw;
-    height: 60vw;
+    width: 10rem;
+    height: 10rem;
     border-radius: 50%;
     background-clip: padding-box;
     animation: move-the-object 10s linear infinite;
@@ -223,6 +226,17 @@ body{
 .bgtrans{
     background: transparent;
     transition: all 0.3s;
+}
+
+.menu-default{
+    color: #000;
+}
+.menu-active{
+    color: #fff;
+}
+.menu-hover:hover{
+    text-decoration: line-through;
+    color: #fff;
 }
 
 .takepic-animate{
@@ -387,12 +401,16 @@ body{
     background: transparent;
     transition: all 0.3s;
     opacity: 0;
+    display: none;
+    z-index: 10;
 }
 
 .hide-out{
     background: transparent;
     transition: all 0.3s;
     opacity: 1;
+    display: inline-block;
+    z-index: 20;
 }
 
 // 背景图片动画

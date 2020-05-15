@@ -12,7 +12,7 @@ export default class PageTransition extends React.Component {
   }
   componentDidMount() {
     this.element = findDOMNode(this);
-    this.element.display = 'none';
+    // this.element.display = 'none';
     if(this.props.disable){
       this.action(this.props.act);
     }

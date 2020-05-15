@@ -1,7 +1,8 @@
 import React , { Component }from 'react';
 import { Components, utils } from 'neo';
 import ImageMove from './imageMove';
-
+import ImageBird from './imageBird';
+import { bannerList } from '../api/index';
 const { Row, Col, Icon } = Components;
 const { sessions, storage } = utils;
 
@@ -11,26 +12,41 @@ class AnimateBanner extends Component {
       this.state = {
          nowStyle: {},
          dotNum: 0,
-         options: [{imgName: 'monty.jpg', enterClass: 'move-to-right', leaveClass: ''},
-            {imgName: 'city.jpg', enterClass: 'move-to-bottom', leaveClass: ''},
-            {imgName: 'star.jpg', enterClass: 'move-to-left', leaveClass: ''}],
+         options: [{enterClass: 'move-to-right', leaveClass: ''},
+            {enterClass: 'move-to-bottom', leaveClass: ''},
+            {enterClass: 'move-to-left', leaveClass: ''}],
          screenWidth: sessions.getStorage('screenWidth'),
+         banners:[]
       };
     }
     componentDidMount() {
-        this.move()
+        this.getBannerList()
     }
 
     componentWillReceiveProps(){
     }
+
+    getBannerList(){
+        bannerList({}).then((res)=>{
+            if(res.code=='0000'&&res.data&&res.data.records.length>0){
+                this.setState({
+                    banners: res.data.records
+                },()=>{
+                    this.move()
+                })
+            }
+        }).catch(()=>{
+
+        })
+    }
     move() {
-        const arr = this.state.options;
+        const arr = this.state.banners;
         let dotNum = this.state.dotNum;
         const self = this;
         setInterval(() => {
             this.changeActive(dotNum);
             dotNum += 1;
-            if (dotNum === arr.length) {
+            if (dotNum >= arr.length) {
               dotNum = 0;
             }
         }, 7000);
@@ -43,9 +59,9 @@ class AnimateBanner extends Component {
     }
 
     render() {
-        const { imgName, dotNum, options, screenWidth } = this.state;
-        const imgDom = options&&options.length>0 ? options.map((itm, idx)=>{
-            return <ImageMove action={dotNum !== idx ? 'leave' :'enter'} key={`${idx}-img`} style={{}} className={`${itm.enterClass} ${screenWidth > 750 ? 'width-120': ''}`} imgName={itm.imgName} />
+        const { imgName, dotNum, options, screenWidth, banners } = this.state;
+        const imgDom = banners&&banners.length>0 ? banners.map((itm, idx)=>{
+            return <ImageBird action={dotNum !== idx ? 'leave' :'enter'} key={`${idx}-img`} style={{}} className={`${options[idx%3].enterClass} ${screenWidth > 750 ? 'width-120': ''}`} imgName={itm.imgGroup} />
         }) : ''
         return(
             <div className='relative bg-000'>

@@ -9,6 +9,7 @@ const {
     Col,
     MenuTab, PopContainer, Icon, Buttons, ProgressDrag, ExModal, Progress, Carousel
 } = Components;
+const { sessions, storage } = utils;
 class MusicPlayer extends Component {
     constructor(props) {
       super(props);
@@ -16,7 +17,8 @@ class MusicPlayer extends Component {
         options: this.props.options ||{},
         autoPlay: '',
         MDdisplay: '',
-        MDaction: ''
+        MDaction: '',
+        isPhone: sessions.getStorage('screenWidth') < 800 
       };
     }
 
@@ -38,7 +40,7 @@ class MusicPlayer extends Component {
     }
     
     render() {
-        const { options, MDdisplay, MDaction} = this.state;
+        const { options, MDdisplay, MDaction, isPhone} = this.state;
         const self = this;
         let theMusic = options.theMusic || {}
         let background=`url(${theMusic.al&&theMusic.al.picUrl||'http://p2.music.126.net/BZNpKSKkPTTv5ZnxdYAdUQ==/5850501371402948.jpg'}) no-repeat top left scroll`
@@ -48,7 +50,7 @@ class MusicPlayer extends Component {
               <div className="music-round display-inline-block overflow-hide margin-top-3r margin-bottom-1r">
                   <img className="width-100" alt="text" src={theMusic.al&&theMusic.al.picUrl||'http://p2.music.126.net/BZNpKSKkPTTv5ZnxdYAdUQ==/5850501371402948.jpg'} />
               </div>
-              <RundumLine percent={options.currentString/options.allString*100} />
+              {/* <RundumLine percent={options.currentString/options.allString*100} /> */}
             </Col>
             </Row>), isActive: true },
         { tabName: 'second', content: (<PlayLyric options={options.theLyric} autoPlay={options.autoPlay} currentTime={options.currentTime} />), isActive: false }];
@@ -64,30 +66,28 @@ class MusicPlayer extends Component {
               <Col span={4} onClick={()=>{options.listPop()}} className="line-height-3r"><Icon iconName={"android-list "} size={'170%'} /></Col>
             </Row>
             <ExModal display={MDdisplay} action={MDaction} options={{
-                content: (<div className="relative heighth-100 bg-333">
-                  <Row className="relative zindex-10 padding-all-1r">
-                    <Col span={4} className={'text-align-center'} onClick={() => { self.setState({
+                content: (<div className="relative heighth-100 bg-333 ">
+                  <Row className="relative zindex-10 padding-all-1r ">
+                    <Col span={4} className={'absolute left-0 top-0 text-align-center margin-top-7r zindex-20'} onClick={() => { self.setState({
                       MDdisplay: 'hide',
                       MDaction: 'leave'
                     }) }} >
                         <Icon iconName={"chevron-down "} size={'180%'} iconColor={'#fff'} />
                     </Col>
-                    <Col span={16} className={'text-align-center line-height-3r'}></Col>
+                    <Col span={16} className={'text-align-center line-height-3r margin-top-5r'}></Col>
+                    <Carousel options={carouselMap} containerStyle={{borderRadius: '0.5rem', height:'20rem'}} innerStyle={{height:'20rem'}} dotDefaultStyle={{width: '5px'}} dotActiveStyle={{}} showDotsText={false} dragAble />
                     
-                    <Carousel options={carouselMap} containerStyle={{borderRadius: '0.5rem', height:'27rem'}} innerStyle={{height:'27rem'}} dotDefaultStyle={{width: '5px'}} dotActiveStyle={{}} showDotsText={false} dragAble />
-                    
-                    <Col className="padding-all-1r ">
-                    <Row className="textclolor-gray margin-top-1r">
-                        <Col span={12} className="text-align-left">{options.currentTime}</Col>
-                        <Col span={12} className="text-align-right">{options.allTime}</Col>
-                    </Row>
-                    
-                    <ProgressDrag percent={options.currentString/options.allString*100} 
-                    barColor={'#fff'} bgColor={'#333'}
-                    style={{height: '5px'}} barRoundStyle={{}}
-                    radius={20} onChange={(v)=>{ console.log(v); options.changeCurrent(v)}} />
+                    <Col span={isPhone? 18 :24} className="padding-all-1r ">
+                        <Row className="textclolor-gray margin-top-1r">
+                            <Col span={12} className="text-align-left">{options.currentTime}</Col>
+                            <Col span={12} className="text-align-right">{options.allTime}</Col>
+                        </Row>
+                        <ProgressDrag percent={options.currentString/options.allString*100} 
+                        barColor={'#fff'} bgColor={'#333'}
+                        style={{height: '5px'}} barRoundStyle={{}}
+                        radius={20} onChange={(v)=>{ console.log(v); options.changeCurrent(v)}} />
                     </Col>
-                    <Col className="padding-all-1r">
+                    <Col span={isPhone? 18 :24} className="padding-all-1r">
                         <PlayerCtrl  autoPlay={options.autoPlay} options={options} />
                     </Col>
                   </Row>

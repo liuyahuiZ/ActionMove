@@ -34,6 +34,8 @@ class PayDoc extends Component {
 
     componentDidMount(){
       console.log();
+      console.log('this.props', this.props)
+      if(this.props.pageIn=='pageOut') return
       const { currentPage, pageSize } = this.state
       this.getArticleList({current: currentPage, pageSize: pageSize });
       this.getTypeList();
@@ -104,7 +106,7 @@ class PayDoc extends Component {
             }}>
                 <Row justify={'center'} className='relative'>
                     <Col className={`${activeType== itm.typeValue ? 'textcolor-fff': 'textcolor-333'} font-size-large zindex-20 cursor-pointer`} onClick={()=>{}}>{itm.typeKey}</Col>
-                    <Col className='textcolor-fff font-size-small margin-top-1r zindex-20'>{itm.remark} / 发布于 {date.format(itm.createTime, 'yyyy-mm-dd ')} </Col>
+                    <Col className='textcolor-fff font-size-small margin-top-1r zindex-20'>{itm.remark} / 发布于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD')} </Col>
                 </Row>
                 <div className={` absolute top-0 left-0 border-radius-5f overflow-hide heightp-100 margin-top-2r`}>
                 <ImageBird imgName={itm.imgGroup}  /></div>

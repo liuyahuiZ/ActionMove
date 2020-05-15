@@ -32,18 +32,26 @@ class HomeDoc extends Component {
       };
     }
     componentDidMount(){
+        console.log('this.props', this.props)
+        if(this.props.pageIn=='pageOut') return
         const self = this;
         const container = this.$$homeContainer;
         const { containerScrollTop } = self.state;
         container.scrollTop = containerScrollTop;
+        let scrollTimer
         container.addEventListener('scroll', (e)=>{
             e.preventDefault();
-            self.checkActive(container.scrollTop);
-            self.setState({
-                containerScrollTop: container.scrollTop
-            },()=>{
+            clearTimeout(scrollTimer);
+            
+            //停止滚动300ms后，执行方法,降低渲染效率
+            scrollTimer = setTimeout(() => {
+                self.checkActive(container.scrollTop);
+                self.setState({
+                    containerScrollTop: container.scrollTop
+                })
+                // todo something scroll end
                 storage.setStorage('containerScrollTop', container.scrollTop)
-            })
+            }, 300);
         })
         this.findAllType();
         this.getArticleList();
@@ -153,8 +161,8 @@ class HomeDoc extends Component {
                                return( <Col span={ isPhone ? 24: 8} className={`${paddStyle} margin-bottom-1r`} key={`${aidx}-article`}>
                                     <Row justify={'center'} className="padding-all-1r bg-show border-radius-5f overflow-hide">
                                         <Col className='textclolor-333 font-size-big cursor-pointer text-overflow' onClick={()=>{showArticleDetail(ait)}}>{ait.title}</Col>
-                                        <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {ait.user} / 发布于 {date.format(ait.createTime, 'yyyy-mm-dd ')}  / 查看 {itm.sea} / 属于 </Col>
-                                        <Col className='textclolor-333 font-size-normal info-text-overflow'>{ait.info}</Col>
+                                        <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {ait.user} / 发布于 {date.momentFormate(ait.createTime, 'YYYY-MM-DD ')}  / 查看 {ait.sea} </Col>
+                                        <Col className='textclolor-333 font-size-normal info-text-overflow' onClick={()=>{showArticleDetail(ait)}}>{ait.info}</Col>
                                         <Col span={4} className='margin-top-2r border-bottom border-color-e5e5e5'></Col>
                                     </Row>
                                 </Col>)
@@ -174,27 +182,28 @@ class HomeDoc extends Component {
                         <Row className="absolute width-100 top-1 zindex-10" justify="center">
                             <Col span={18} className="bg-000 opacity-8 padding-all border-radius-5f">
                                 <Row className="">
-                                    <Col className={'textcolor-fff text-align-center font-size-large'}>"不昧本来，太虚明月流辉过"</Col>
-                                    <Col className={'textcolor-fff text-align-center'}>抱元独坐，云去无心，大道无我</Col>
-                                    <Col className={'textcolor-fff text-align-center line-height-3r'}>THE BIRD ECO</Col>
+                                    <Col className={'textcolor-fff text-align-center font-size-large'}>满堂花醉三千客，一剑霜寒十四州。</Col>
+                                    <Col className={'textcolor-fff text-align-center font-size-large'}>鼓角揭天嘉气冷，风涛动地海山秋。</Col>
+                                    <Col className={'textcolor-fff text-align-center '}>“ 对酒转愁多，愁多奈酒何 ”</Col>
+                                    <Col className={'textcolor-fff text-align-right line-height-3r'}>—— 《贯休》</Col>
                                 </Row>
                             </Col>
                         </Row>
                         <Row className="absolute width-100 bottom-1r padding-all zindex-10" align={'center'} justify={'center'}>
                             <Col span={15.5}>
-                                <div className="textcolor-fff font-size-7 opacity-8">THE PROTECTION OF THE ENVIRONMENT IS ONE OF THE BASIC STATE POLICIES OF THE CHINESE GOVERNMENT</div>
+                                <div className="textcolor-fff font-size-7 opacity-8">However bad life may seem, there is always something you can do, and succeed at.</div>
                             </Col>
                             <Col span={2.5}>
                                 <div className={'width-100'}><span className={"icon small icon-footer1"} /> </div>
-                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">环保</span></div>
+                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">求知</span></div>
                             </Col>
                             <Col span={2.5}>
                                 <div className={'width-100'}><span className={"icon small icon-footer2"} /> </div>
-                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">安全</span></div>
+                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">创新</span></div>
                             </Col>
                             <Col span={3}>
                                 <div className={'width-100'}><span className={"icon small icon-footer3"} /> </div>
-                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">循环</span></div>
+                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">回馈</span></div>
                             </Col>
                             
                         </Row>
