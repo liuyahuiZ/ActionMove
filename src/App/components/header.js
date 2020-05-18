@@ -20,7 +20,7 @@ class Header extends Component {
          menu: [{title: '首页', path: '/Home'},
           {title: '博客', path: '/ArticleList'},
           {title: '音乐', path: '/MusicCategory'},
-          {title: '留言', path: '/MusicCategory'},
+          {title: '留言', path: '/Messages'},
           {title: '日历', path: '/Clender'}]
       };
     }

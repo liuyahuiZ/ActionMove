@@ -59,6 +59,7 @@ import RandomNumber from './RandomNumber';
 import Picker from './Picker';
 import Step from './Step';
 import TagRadio from './TagRadio';
+import Editor from './Editor';
 import ErrorBounDary from './ErrorBounDary';
 import Notification from "./Notification";
 import * as Tables from './Table';
@@ -132,5 +133,6 @@ export {
   TagRadio,
   ErrorBounDary,
   Notification,
-  ExModal
+  ExModal,
+  Editor
 };

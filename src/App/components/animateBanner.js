@@ -1,7 +1,7 @@
 import React , { Component }from 'react';
 import { Components, utils } from 'neo';
 import ImageMove from './imageMove';
-import ImageBird from './imageBird';
+import ImageBirdMove from './imageBirdMove';
 import { bannerList } from '../api/index';
 const { Row, Col, Icon } = Components;
 const { sessions, storage } = utils;
@@ -61,7 +61,7 @@ class AnimateBanner extends Component {
     render() {
         const { imgName, dotNum, options, screenWidth, banners } = this.state;
         const imgDom = banners&&banners.length>0 ? banners.map((itm, idx)=>{
-            return <ImageBird action={dotNum !== idx ? 'leave' :'enter'} key={`${idx}-img`} style={{}} className={`${options[idx%3].enterClass} ${screenWidth > 750 ? 'width-120': ''}`} imgName={itm.imgGroup} />
+            return <ImageBirdMove action={dotNum !== idx ? 'leave' :'enter'} key={`${idx}-img`} style={{}} className={`${options[idx%3].enterClass} width-120`} imgName={itm.imgGroup} />
         }) : ''
         return(
             <div className='relative bg-000'>

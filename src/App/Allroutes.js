@@ -102,6 +102,12 @@ const ArticleList = (location, cb) => {
   },'ArticleList')
 };
 
+const Messages = (location, cb) => {
+  require.ensure([], require => {
+      cb(null, require('./page/messages').default)
+  },'Messages')
+};
+
 class MyRouter extends Component{
   constructor(props) {
     super(props);
@@ -130,6 +136,7 @@ class MyRouter extends Component{
         <Route path={'UserInfo'} getComponent={UserInfo} />
         <Route path={'Clender'} getComponent={Clender} />
         <Route path={'ArticleList'} getComponent={ArticleList} />
+        <Route path={'Messages'} getComponent={Messages} />
       </Route>
     </Router>
     )

@@ -60,13 +60,13 @@ class PageNation extends Component {
         const self = this;
         if(allPage && allPage >= 1){
             for(let i=1; i < allPage+1; i++){
-                pageNumDom.push(<span className={`padding-left-1r cursor-pointer padding-right-1r font-size-12 ${currentPage==i? 'textclolor-333' : 'textclolor-black-low'}`}
+                pageNumDom.push(<span key={`num-${i}`} className={`padding-left-1r cursor-pointer padding-right-1r font-size-12 ${currentPage==i? 'textclolor-333' : 'textclolor-black-low'}`}
                  onClick={()=>{ self.getData(i)}}>{i}</span>)
             }
         }
         return(
             <Row className='line-height-3r relative' justify={'center'}>
-                {allCount?<Col className='absolute left-0' span={4}>共 {allCount||'--'} 条</Col>:''}
+                {allCount?<Col className='absolute left-0' span={6}>共 {allCount||'--'} 条</Col>:''}
                 {allCount?<Col span={16} className='text-align-center'>
                     <span  className={`width-3r text-align-right padding-right-1r cursor-pointer `} onClick={()=>{
                         self.preClick()

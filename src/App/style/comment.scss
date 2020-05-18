@@ -163,6 +163,9 @@ p{
        z-index: 20;  
 }  
   
+.w-e-toolbar{
+    flex-wrap: wrap;
+}
 @keyframes rotate {  
     50% {  
         transform: translate(-50%, -70%) rotate(180deg);  

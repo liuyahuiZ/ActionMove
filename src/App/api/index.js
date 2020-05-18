@@ -153,3 +153,14 @@ export function logCount(reqbody){
         })
     })
 }
+
+export function addMessages(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'Messages/addMessages',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}

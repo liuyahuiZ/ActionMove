@@ -11,7 +11,8 @@ class Footer extends Component {
       this.state = {
          pageStatus: this.props.pageStatus,
          screenWidth: sessions.getStorage('screenWidth'),
-         allAccess: 0
+         allAccess: 0,
+         isPhone: sessions.getStorage('screenWidth') < 800 
       };
     }
     componentDidMount() {
@@ -35,7 +36,7 @@ class Footer extends Component {
     }
 
     render() {
-        const { pageStatus, screenWidth, allAccess } = this.state;
+        const { pageStatus, screenWidth, allAccess, isPhone } = this.state;
         return(
             <Row className='bg-333 opacity-9'>
                 <Col className=" padding-bottom-1r  relative">
@@ -43,7 +44,7 @@ class Footer extends Component {
                         <Col  span={18} className="margin-top-3r ">
                             <div className="width-100 relative text-align-left line-height-3r textcolor-fff">关于</div>
                             <Row justify="center">
-                                <Col span={8} className='textclolor-black-low'>
+                                <Col span={isPhone ? 16 :8} className='textclolor-black-low'>
                                     <Row className='line-height-2r font-size-small'>
                                         <Col span={4} className="text-align-center"><Icon iconName={'android-happy '} size={'200%'} iconColor={ '#fff'} /></Col>
                                         <Col span={19}>Mr.Andsen</Col>

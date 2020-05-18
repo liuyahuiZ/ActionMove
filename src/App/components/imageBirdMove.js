@@ -10,6 +10,7 @@ class ImageBird extends Component {
          imgName: this.props.imgName,
          className: this.props.className,
          loadStatus: 'LOADING',
+         display: this.props.action =='enter'? 'show': 'hide',
       };
     }
     componentDidMount() {
@@ -20,13 +21,24 @@ class ImageBird extends Component {
             className: nextProps.className,
             action: nextProps.action,
         })
+        if(nextProps.action=='leave'){
+            setTimeout(()=>{
+                this.setState({
+                    display: 'hide'
+                })
+            }, 100)
+        } else{
+            this.setState({
+                display: 'show'
+            })
+        }
     }
 
     render() {
         const { imgName, className, loadStatus, display } = this.state;
         const self = this;
         return(
-        <div className={`width-100 ${loadStatus=='LOADING'? 'img_bg': ''} `}>
+        <div className={`width-100 ${loadStatus=='LOADING'? 'img_bg': ''} ${display=='show'? 'hide-out zindex-20':"hide-in zindex-10"}`}>
          <img onLoad={()=>{ console.log('load complate');
             self.setState({
                 loadStatus: 'LOADED'
