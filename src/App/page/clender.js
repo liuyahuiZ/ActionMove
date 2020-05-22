@@ -35,6 +35,7 @@ class Clender extends BaseView {
             cardInfo: {},
             loadText: '加载中',
             wxConfig: sessions.getStorage('WXCONFIG') || {},
+            isPhone: sessions.getStorage('screenWidth') < 800,
             hasCard: "LOADING", // LOADING ,  HASCARD, NULLCARD
         };
     }
@@ -46,7 +47,7 @@ class Clender extends BaseView {
     }
     
     render(){
-        const { cardInfo, hasCard } = this.state;
+        const { cardInfo, hasCard, isPhone } = this.state;
         console.log(moment().dayOfYear())
         console.log(datedifference(`${moment().year()}-12-31`, `${moment().year()}-01-01`))
         let nowDay = datedifference(moment().format('YYYY-MM-DD'), `${moment().year()}-01-01`) + 1;
@@ -58,27 +59,30 @@ class Clender extends BaseView {
         });
         const self = this;
         return (<section className="bg-f5f5f5 padding-all minheight-100">
-            <Row>
-                <Col className="line-height-3r font-size-12">日历</Col>
+            <Row justify={"center"} >
+                <Col className="line-height-3r font-size-12" span={isPhone? 24: 20}>日历</Col>
+                <Col span={isPhone? 24: 20}>
+                    <Row justify={"center"} className="padding-all-1r  bg-show border-radius-5f box-shadow">
+                    <Col span={12}>
+                        {moment().format('YYYY-MM-DD')}
+                    </Col>
+                    <Col span={12} className="text-align-right">
+                        {moment().format('dddd')}
+                    </Col>
+                    <Col className="margin-top-1r font-size-40 text-align-center">
+                        {moment().format('DD')}
+                    </Col>
+                    <Col className="text-align-center">
+                        {show_lunar_calendar()}
+                    </Col>
+                    <Col className="margin-top-2r text-align-center">第 { nowDay } 天, 今年已消耗 {computed.accMul((nowDay / allDay), 100).toFixed(2)}%， 剩余 { datedifference(moment().format('YYYY-MM-DD'), `${moment().year()}-12-31`)} 天</Col>
+                    <Col className="margin-top-1r">
+                        <Progress percent={ computed.accMul((nowDay / allDay), 100) } barColor={'#FF6157'} radius={2} />
+                    </Col>
+                    </Row>
+                </Col>
             </Row>
-            <Row justify={"center"} className="padding-all-1r  bg-show border-radius-5f box-shadow">
-                <Col span={12}>
-                    {moment().format('YYYY-MM-DD')}
-                </Col>
-                <Col span={12} className="text-align-right">
-                    {moment().format('dddd')}
-                </Col>
-                <Col className="margin-top-1r font-size-40 text-align-center">
-                    {moment().format('DD')}
-                </Col>
-                <Col className="text-align-center">
-                    {show_lunar_calendar()}
-                </Col>
-                <Col className="margin-top-2r text-align-center">第 { nowDay } 天, 今年已消耗 {computed.accMul((nowDay / allDay), 100).toFixed(2)}%， 剩余 { datedifference(moment().format('YYYY-MM-DD'), `${moment().year()}-12-31`)} 天</Col>
-                <Col className="margin-top-1r">
-                    <Progress percent={ computed.accMul((nowDay / allDay), 100) } barColor={'#FF6157'} radius={2} />
-                </Col>
-            </Row>
+            
         </section>)
     }
 }

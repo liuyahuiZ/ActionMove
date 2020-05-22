@@ -67,7 +67,7 @@ class MusicPlayer extends Component {
             </Row>
             <ExModal display={MDdisplay} action={MDaction} options={{
                 content: (<div className="relative heighth-100 bg-333 ">
-                  <Row className="relative zindex-10 padding-all-1r ">
+                  <Row className="relative zindex-10 padding-all-1r " justify='center'>
                     <Col span={4} className={'absolute left-0 top-0 text-align-center margin-top-7r zindex-20'} onClick={() => { self.setState({
                       MDdisplay: 'hide',
                       MDaction: 'leave'

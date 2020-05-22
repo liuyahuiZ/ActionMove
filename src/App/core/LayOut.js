@@ -9,8 +9,6 @@ import Static from './static';
 import Header from '../components/Header';
 import { ListContext } from  'context';
 import { Provider, KeepAlive } from 'react-keep-alive'
-import { addAccessLog } from '../api/index';
-import { getUser } from '../utils/common'
 const { Button, PageTransition, ErrorBounDary } = Components;
 const { HeaderPart } = Parts
 const { sessions, storage } = utils;
@@ -42,7 +40,6 @@ class LayOut extends Component {
             titleArr: histArr,
             moving: false,
         }) 
-        this.addLog()
     }
     componentWillReceiveProps(nextProps, nextContext) {
         const { moving, historyArr } = this.state;
@@ -69,12 +66,7 @@ class LayOut extends Component {
             this.changeContent('leave', nextProps)
         }
     }
-    addLog(){
-        addAccessLog({client: navigator.userAgent, info: '', user: getUser()}).then((res)=>{
-            console.log('res',res)
-        }).catch(()=>{
-        })
-    }
+    
     changeContent(action, nextProps){
         const self = this;
         const arr = this.state.compontArr;

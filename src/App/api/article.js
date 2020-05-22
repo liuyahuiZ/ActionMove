@@ -34,6 +34,28 @@ export function articleListForType(reqbody){
     })
 }
 
+export function articleFindCommit(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'article/findCommit',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
+export function articleMakeCommit(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'article/makeCommit',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
 export function typeList(reqbody){
     return new Promise((resolve, reject)=>{
         fetch(config.ROOT_URL+ 'blockType/findType',{ method: 'POST', data: reqbody})

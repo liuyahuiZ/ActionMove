@@ -62,7 +62,9 @@ import TagRadio from './TagRadio';
 import Editor from './Editor';
 import ErrorBounDary from './ErrorBounDary';
 import Notification from "./Notification";
+import LoadText from './LoadText';
 import * as Tables from './Table';
+import { isMoment } from 'moment';
 
 const { Table, TableRowColumn, TableRow, TableHeaderRow } = Tables;
 
@@ -134,5 +136,6 @@ export {
   ErrorBounDary,
   Notification,
   ExModal,
+  LoadText,
   Editor
 };

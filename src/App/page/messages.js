@@ -3,21 +3,21 @@ import { Components, utils } from 'neo';
 import { hashHistory } from 'react-router';
 import config from '../config/config';
 import { UrlSearch } from '../utils';
-import { addMessages } from '../api/index'
+import { addMessages, messagesList } from '../api/index'
+import PageNation from '../components/pageNation';
+import LoadText from '../components/LoadText';
 import { goLink } from '../utils/common';
 
 const {
     Buttons,
     Toaster,
-    Header,
-    Item,
     Row,
     Col,
     Icon,
     Modal,
-    Input, Editor
+    Input, Editor, AnTransition
   } = Components;
-const { sessions, storage } = utils;
+const { sessions, storage, date } = utils;
 class Messages extends Component {
     constructor(props) {
       super(props);
@@ -30,13 +30,42 @@ class Messages extends Component {
           message: '',
           code: '',
           email: '',
+          messageList: [],
+          currentPage: 1,
+          pageSize: 20,
+          loadStatus: 'LOADING', //'LOADING', 'ERROR', 'SUCCESS', 'NODATA',
+          pageInfo: {},
           isPhone: sessions.getStorage('screenWidth') < 800 
       };
     }
     componentDidMount(){
         let obg = UrlSearch();
+        const { currentPage, pageSize } = this.state;
+        this.getMessageList({current: currentPage, pageSize: pageSize });
     }
 
+    getMessageList(obg){
+      messagesList(obg).then((res)=>{
+        if(res.code=='0000'){
+            this.setState({
+              messageList: res.data.records,
+              loadStatus: res.data.records.length==0? 'NODATA': 'SUCCESS',
+              pageInfo: res.data.pageInfo
+            })
+        }else{
+          this.setState({
+            messageList: [],
+            loadStatus: 'NODATA'
+          })
+        }
+    }).catch((err)=>{
+        console.log('err',err)
+        this.setState({
+          messageList: [],
+          loadStatus: 'ERROR'
+        })
+    })
+    }
     setValue(key,val){
       this.setState({[key]: val});
     }
@@ -75,8 +104,24 @@ class Messages extends Component {
     }
 
     render() {
-      const { phone, code, message, name, email, isPhone} = this.state;
+      const { phone, code, message, name, email, isPhone, messageList, loadStatus, pageInfo} = this.state;
       const self = this;
+      let messageDom = messageList&&messageList.length>0 ? messageList.map((itm, idx)=>{
+        return (<AnTransition
+          delay={idx*600}
+          act={'enter'}
+          duration={166}
+          enter={'listTem-enter'}
+          leave={'listTem-leave'}
+          key={`${idx}-ops`}
+      ><Col className="textclolor-333 margin-bottom-3r" >
+            <Row className="">
+              <Col className='textclolor-black-low font-size-small margin-top-1r'>
+              <Icon iconName={'android-happy'} size={'190%'} iconColor={'#999'} /> <span className='font-size-large textclolor-333'>{itm.userName||'--'}</span> / 留言于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD HH:mm:ss')} </Col>
+              <Col className='textclolor-333 font-size-normal'><div dangerouslySetInnerHTML={{__html: itm.message}} /></Col>
+            </Row>
+        </Col></AnTransition>)
+    }) : <LoadText loadTextStatus={loadStatus} refreshBack={()=>{this.props.getMessageList()}} ></LoadText>
         return(
           <section className="bg-f5f5f5">
             <Row className="padding-all " justify='center'>
@@ -130,7 +175,7 @@ class Messages extends Component {
                       <Col span={3} className=" text-align-center">
                         <Icon iconName={'chatbox-working'} size={'190%'} iconColor={'#333'} /> 
                       </Col>
-                      <Col span={21}>
+                      <Col span={21} className="margin-top-1">
                       <Editor
                           ref={(r)=>{
                             self.$$editor = r
@@ -139,8 +184,9 @@ class Messages extends Component {
                       </Col>
                   </Row>
                 </Col>
-                
-                <Col span={isPhone? 20 :6} className="margin-top-5r padding-all-1r" >
+                <Col span={isPhone? 20 : 18} className='font-size-small margin-top-2r textclolor-black-low'>留言会公开显示，请勿在留言内容写下微信号等私人联系方式，谨防诈骗。如果你不想发布公开留言，也可以发送邮件到 liuyahui991@gmail.com 与我联系。
+                </Col>
+                <Col span={isPhone? 20 :7} className="margin-top31r padding-all-1r" >
                   <Buttons
                     text="提交"
                     type={'primary'}
@@ -151,6 +197,19 @@ class Messages extends Component {
                     }}
                   />
                 </Col>
+                <Col span={isPhone? 24: 20} >
+                  <Row className="width-100 textcolor-288767 font-size-large margin-top-3r">留言板</Row>
+                  <Row>{messageDom}</Row>
+                </Col>
+                <Col span={isPhone? 20 : 18}>
+                <PageNation getData={(pageNum)=>{
+                self.setState({
+                    currentPage: pageNum
+                },()=>{ self.getMessageList({current: pageNum, pageSize: pageSize, searchObg: searchObg }) })
+                
+                }} pageInfo={pageInfo} />
+                </Col>
+                
             </Row>
             {/* </div> */}
           </section>

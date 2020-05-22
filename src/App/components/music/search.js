@@ -39,7 +39,7 @@ class SearchCtrl extends Component {
          <Row className="">
            <Col className="line-height-3r padding-left-1r heighr-3 border-radius-9r bg-show overflow-hide">
               <Row className="overflow-hide" onClick={()=>{}}>
-                  {keyWords&&keyWords!=='' ? '' :<Col span={5}><Icon iconName={'ios-search-strong '} size={'130%'} /></Col>}
+                  {keyWords&&keyWords!=='' ? '' :<Col span={5} className={`${ keyWords&&keyWords!==''  ? '': 'left-search'}`}><Icon iconName={'ios-search-strong '} size={'130%'} /></Col>}
                   <Col span={19} className="textclolor-gray font-size-8 ">
                   <Input
                   value={keyWords}
@@ -51,12 +51,12 @@ class SearchCtrl extends Component {
                       })
                   }}
                   /></Col>
-                  {keyWords&&keyWords!=='' ?  <Col span={5}>
+                  {keyWords&&keyWords!=='' ?  <Col span={5} className={`${ keyWords&&keyWords!==''  ? 'right-logo': 'right-out'}`}>
                   <Buttons
                     text={<Icon iconName={'ios-search-strong '} iconColor={"#fff"} size={'130%'} />}
                     type={'primary'}
                     size={'large'}
-                    style={{backgroundColor: '#855EF1', color:'#fff', borderRadius: '6rem'}}
+                    style={{backgroundColor: '#333', color:'#fff', borderRadius: '6rem'}}
                     onClick={()=>{
                       self.props.callBack(keyWords)
                     }}

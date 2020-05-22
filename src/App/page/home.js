@@ -11,7 +11,8 @@ import ImageBird from '../components/imageBird';
 import LoadText from '../components/LoadText';
 import List from '../components/list';
 import { showArticleDetail } from '../utils/domUtil';
-import { findType } from '../api/index';
+import { getUser } from '../utils/common'
+import { findType, addAccessLog } from '../api/index';
 import { articleList, articleListForType } from '../api/article';
 
 const { sessions, storage, date } = utils;
@@ -53,11 +54,17 @@ class HomeDoc extends Component {
                 storage.setStorage('containerScrollTop', container.scrollTop)
             }, 300);
         })
+        this.addLog()
         this.findAllType();
         this.getArticleList();
         this.getArticleListForType()
     }
-
+    addLog(){
+        addAccessLog({client: navigator.userAgent, info: '', user: getUser()}).then((res)=>{
+            console.log('res',res)
+        }).catch(()=>{
+        })
+    }
     findAllType(){
         findType({}).then((res)=>{
             console.log('res',res)
@@ -67,7 +74,7 @@ class HomeDoc extends Component {
     }
 
     getArticleList(){
-        articleList({current: 1,pageSize: 5
+        articleList({current: 1,pageSize: 5, sort: {'sea': -1}
         }).then((res)=>{
             if(res.code=='0000'){
                 this.setState({

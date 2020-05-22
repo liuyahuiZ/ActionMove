@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app.bundle.js',
-    chunkFilename: '[name].[chunkhash].js'
+    chunkFilename: 'js/[name].[chunkhash].js'
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist')

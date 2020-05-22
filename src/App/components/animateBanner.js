@@ -2,7 +2,7 @@ import React , { Component }from 'react';
 import { Components, utils } from 'neo';
 import ImageMove from './imageMove';
 import ImageBirdMove from './imageBirdMove';
-import { bannerList } from '../api/index';
+import { bannerList, bannerListForCode } from '../api/index';
 const { Row, Col, Icon } = Components;
 const { sessions, storage } = utils;
 
@@ -27,7 +27,7 @@ class AnimateBanner extends Component {
     }
 
     getBannerList(){
-        bannerList({}).then((res)=>{
+        bannerListForCode({code: 'mymove'}).then((res)=>{
             if(res.code=='0000'&&res.data&&res.data.records.length>0){
                 this.setState({
                     banners: res.data.records

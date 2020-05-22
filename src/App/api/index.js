@@ -132,6 +132,17 @@ export function bannerList(reqbody){
     })
 }
 
+export function bannerListForCode(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'banner/bannerListForCode',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
 export function addAccessLog(reqbody){
     return new Promise((resolve, reject)=>{
         fetch(config.ROOT_URL+ 'accessLog/addLog',{ method: 'POST', data: reqbody})
@@ -156,7 +167,18 @@ export function logCount(reqbody){
 
 export function addMessages(reqbody){
     return new Promise((resolve, reject)=>{
-        fetch(config.ROOT_URL+ 'Messages/addMessages',{ method: 'POST', data: reqbody})
+        fetch(config.ROOT_URL+ 'messages/addMessages',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
+export function messagesList(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'messages/messagesList',{ method: 'POST', data: reqbody})
         .then(data => {
             resolve(data)
         }).catch(error => {
