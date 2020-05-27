@@ -187,7 +187,7 @@ class HomeDoc extends Component {
                 <Col className="relative heighth-100 zindex-10" >
                     <div ref={(r) => { this.$$action0 = r; }}>
                         <Row className="absolute width-100 top-1 zindex-10" justify="center">
-                            <Col span={18} className="bg-000 opacity-8 padding-all border-radius-5f">
+                            <Col span={18} className="bg-000 opacity-8 padding-all border-radius-5f content-dom">
                                 <Row className="">
                                     <Col className={'textcolor-fff text-align-center font-size-large'}>满堂花醉三千客，一剑霜寒十四州。</Col>
                                     <Col className={'textcolor-fff text-align-center font-size-large'}>鼓角揭天嘉气冷，风涛动地海山秋。</Col>
@@ -222,7 +222,7 @@ class HomeDoc extends Component {
                 <Col className="zindex-10 bg-show" >
                     <div ref={(r) => { this.$$action1 = r; }}>
                     <Row className={"margin-top-3r"} justify="center">
-                        <Col span={18} className="">
+                        <Col span={18} className="content-dom">
                             <div className="width-100 textcolor-288767 text-align-center font-size-large">热门博客</div>
                             <div className={`${activeNum > 0 ? 'bottom-in' : 'bottom-out'} font-size-9 line-height-1f margin-top-5r `}>
                                 <List articlesArr={articleListArr} loadStatus={loadStatus} />
@@ -232,7 +232,7 @@ class HomeDoc extends Component {
                     </div>
                     <div ref={(r) => { this.$$action2 = r; }}>
                     <Row className={"margin-top-5r bg-f5f5f5"} justify="center">
-                        <Col span={18}  className={`${activeNum > 1 ? 'bottom-in' : 'bottom-out'}`}>
+                        <Col span={18}  className={`${activeNum > 1 ? 'bottom-in' : 'bottom-out'} content-dom`}>
                             <div className="width-100 textcolor-288767 font-size-large text-align-center margin-top-3r">博客分类</div>
                             <div className="width-100 text-align-center"></div>
                         </Col>

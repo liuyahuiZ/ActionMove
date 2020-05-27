@@ -34,25 +34,6 @@ class Music extends Component {
         musicList: nextProps.musicList||{}
       })
     }
-    // {
-    //   title: '演员', author: '李荣浩', player: '123', file: '13', fileUrl: 'http://m10.music.126.net/20190531154927/3f2ca3e4e642b4a22a3ba7ac07e32551/ymusic/872b/f67a/5bd8/6f59bf9be86b3536e5b30e26040c0400.mp3',
-    //   infoImg: 'http://localhost:2019/files/getFile?path=uploads/14818193753876.png'
-    // },{
-    //   title: '小情歌', author: '苏打绿', player: '123', file: '13', fileUrl: 'http://localhost:2019/files/getFile?path=uploads/music/xiaoqg.mp3',
-    //   infoImg: 'http://localhost:2019/files/getFile?path=uploads/14818159624230.png'
-    // },{
-    //   title: '喜剧之王', author: '李荣浩', player: '123', file: '13', fileUrl: 'http://localhost:2019/files/getFile?path=uploads/music/xjzw.mp3',
-    //   infoImg: 'http://localhost:2019/files/getFile?path=uploads/3.png'
-    // },{
-    //   title: '小幸运', author: '田馥甄', player: '123', file: '13', fileUrl: 'http://localhost:2019/files/getFile?path=uploads/music/litleLuck.mp3',
-    //   infoImg: 'http://localhost:2019/files/getFile?path=uploads/2.png'
-    // },{
-    //   title: '海阔天空', author: 'byong', player: '123', file: '13', fileUrl: 'http://localhost:2019/files/getFile?path=uploads/music/hktk.mp3',
-    //   infoImg: 'http://localhost:2019/files/getFile?path=uploads/bg2.png'
-    // },{
-    //   title: '画风', author: '后弦', player: '123', file: '13', fileUrl: 'http://localhost:2019/files/getFile?path=uploads/music/1467813377.mp3',
-    //   infoImg: 'http://localhost:2019/files/getFile?path=uploads/bg2.png'
-    // }
 
     componentDidMount(){
       this.addListenr();

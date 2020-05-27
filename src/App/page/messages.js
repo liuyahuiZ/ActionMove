@@ -72,7 +72,7 @@ class Messages extends Component {
 
     addMsg(){
       const self = this;
-      const { phone, name, email } = this.state
+      const { phone, name, email, currentPage,  pageSize} = this.state
       let message = self.$$editor.getValue();
       if(!name&&name==='') {
         Toaster.toaster({ type: 'normal', position: 'top', content: '请填写称呼', time: 3000 }, true);
@@ -95,6 +95,7 @@ class Messages extends Component {
         console.log(res);
         if(res.respHead.code=='0000'){
           Toaster.toaster({ type: 'normal', position: 'top', content: '留言成功', time: 5000 });
+          self.getMessageList({current: currentPage, pageSize: pageSize });
         }else{
           Toaster.toaster({ type: 'normal', position: 'top', content: res.msg, time: 5000 });
         }
@@ -125,7 +126,7 @@ class Messages extends Component {
         return(
           <section className="bg-f5f5f5">
             <Row className="padding-all " justify='center'>
-                <Col span={isPhone? 24: 20} className="bg-show margin-top-2 padding-all-1r border-radius-5f">
+                <Col span={isPhone? 24: 20} className="bg-show margin-top-2 padding-all-1r border-radius-5f content-dom" >
                   <Row className="">
                       <Col span={3} className="text-align-center">
                         <Icon iconName={'android-happy'} size={'190%'} iconColor={'#333'} /> 

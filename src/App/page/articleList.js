@@ -116,12 +116,12 @@ class PayDoc extends Component {
 
         return(
         <Row justify='center'>
-            <Col span={20}><Row justify='center'>{typeDom}</Row></Col>
+            <Col span={20} className="content-dom"><Row justify='center'>{typeDom}</Row></Col>
             <Col span={14} className="margin-bottom-2r"><Search callBack={(k)=>{
                     console.log(k);
                     self.getArticleList({current: 1, pageSize: pageSize, searchObg: searchObg, keyWord: k});
                 }} /></Col>
-            <Col span={20}><List articlesArr={articleListArr} loadStatus={loadStatus} /></Col>
+            <Col span={20} className="content-dom"><List articlesArr={articleListArr} loadStatus={loadStatus} /></Col>
             <Col span={isPhone? 20 : 14}><PageNation getData={(pageNum)=>{
                 self.setState({
                     currentPage: pageNum

@@ -24,19 +24,22 @@ p{
     -o-transition: all 0.3s ease-out;
 }
 .doc-enter {
-    transform: translate3d(0%,0%,0);
-    position: absolute;
-    width: 100vw;
+    top: 0px;
+    opacity: 1;
+    transition: all 400ms;
+    transform: translate(0px, 0px);
 }
 .doc-leave {
-    transform: translate3d(0%,100%,0);
-    position: absolute;
-    width: 100vw;
+    top: 0px;
+    opacity: 0;
+    transition: all 400ms;
+    transform: translate(0px, 60px);
 }
 .doc-leave-end {
-    transform: translate3d(0%,-100%,0);
-    position: absolute;
-    width: 100vw;
+    top: 0px;
+    opacity: 0;
+    transition: all 400ms;
+    transform: translate(0px, -60px);
 }
 
 
@@ -63,6 +66,10 @@ p{
     overflow: auto;
     background: #f5f5f5;
     -webkit-overflow-scrolling: touch;
+}
+
+.content-dom{
+    max-width: 1200px;
 }
 
 .has-header{

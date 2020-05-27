@@ -8,11 +8,12 @@ class ExModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: {},
       id: 0,
       display: this.props.display, //'hide',
       action: this.props.action, //'enter'
-      options: this.props.options
+      options: this.props.options||{},
+      disabledLayout:this.props.disabledLayout,
+      hideDom: false
     };
     this.rmMsg = this.rmMsg.bind(this);
   }
@@ -21,11 +22,14 @@ class ExModal extends Component {
     // this.toaster()
   }
   componentWillReceiveProps(nextProps){
-    const self = this;
+    const { action } = this.state
+    // if(display == nextProps.display) return;
     this.setState({
       display: nextProps.display,
       action: nextProps.action,
-      options: nextProps.options
+      options: nextProps.options,
+      disabledLayout:nextProps.disabledLayout,
+      hideDom: false
     })
   }
 
@@ -38,13 +42,24 @@ class ExModal extends Component {
   }
 
   rmMsg(key) {
+    const {disabledLayout}=this.state;
+    if(disabledLayout=='0') return;
     this.setState({ display: 'hide' });
+    this.props.hideModal()
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    // const { display } = this.state;
+    // if(display==nextProps.display){
+    //   return false
+    // }
+    return true;
   }
   render() {
     const self = this;
-    const { options, action, display } = this.state;
+    const { options, action, display, hideDom } = this.state;
+    console.log('action', action)
     const contbg = display==='show' ? (<Transition
-      act={'enter'}
+      act={action}
       duration={166}
       enter={'modalbg-enter'}
       leave={'modalbg-leave'}
@@ -54,15 +69,15 @@ class ExModal extends Component {
       self.rmMsg();
     }} /></Transition>) : '';
 
-    const cellDom = display==='show' ? <PageTransition
+    const cellDom = display=='show' ? <PageTransition
       act={action}
       duration={166}
       enter={`actionSheet-${options.type}enter`}
       leave={`actionSheet-${options.type}leave`}
-    ><div style={styles.cont}>{options.content}</div></PageTransition> : '';
+    ><div className="scroller" style={Object.assign({}, styles.cont, options.containerStyle)}>{options.content}</div></PageTransition>: '';
 
     return (
-      <div style={styles.container} className="transi">
+      <div style={Object.assign({}, styles.container) } className="transi">
         {cellDom}
         {contbg}
       </div>
@@ -77,7 +92,7 @@ ExModal.propTypes = {
 
 ExModal.defaultProps = {
   options: {},
-  callbackRM: () => {}
+  callbackRM: () => {},
 };
 
 export default ExModal;

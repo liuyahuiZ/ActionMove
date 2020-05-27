@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Router, Route, hashHistory, IndexRedirect, IndexRoute } from 'react-router';
 import LayOut from './core/LayOut';
-import ListDoc from './page/list';
 import Home from './page/home';
 
 const DomeDoc = (location, cb) => {
@@ -119,7 +118,6 @@ class MyRouter extends Component{
         {/* <IndexRoute component={ListDoc} /> */}
         <IndexRedirect to="/Home"/>
         <Route path={'Home'} component={Home} />
-        <Route path={'Lists'} component={ListDoc} />
         <Route path={'Demo'} getComponent={DomeDoc} />
         <Route path={'Tab'} getComponent={TabDoc} />
         <Route path={'CreateArticle'} getComponent={CreateArticleDoc} />
