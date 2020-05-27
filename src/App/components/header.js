@@ -3,7 +3,7 @@ import { Components, utils } from 'neo';
 import { hashHistory } from 'react-router';
 import ImageMove from './imageMove';
 import { goLink, getHeaderClass } from '../utils/common';
-const { Row, Col, Icon, PopContainer, ExModal } = Components;
+const { Row, Col, Icon, PopContainer, ExModal, AnTransition } = Components;
 
 const { sessions, storage } = utils;
 
@@ -49,10 +49,18 @@ class Header extends Component {
     
     doSheet1(screenWidth){
         const { location, containerScrollTop, menu, activeKey } = this.state;
+        console.log('location', location)
         let pScreenWidth = screenWidth;
         const self = this;
         let menuDom = menu&&menu.length > 0 ? menu.map((itm, idx)=>{
-            return (<Col span={24} key={`${idx}-men`} className={`${itm.path == activeKey ? 'menu-active':'menu-default'} transf text-align-center line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
+            return (<AnTransition
+                delay={idx*300}
+                act={'enter'}
+                duration={166}
+                enter={'bottom-in'}
+                leave={'bottom-out'}
+                key={`${idx}-ops`}
+            ><Col span={24} key={`${idx}-men`} className={`${itm.path == `/${location}` ? 'menu-active':'menu-default'} transf text-align-center line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
                 <div className={` textcolor-6C727C font-size-14 cursor-pointer border-radius-9r menu-hover`} 
                 style={itm.path == activeKey ? { 'textDecoration': 'line-through', 'fontSize': '160%' } : { 'fontSize': '140%' } }
                  onClick={()=>{ self.setState({'activeKey': itm.path});
@@ -61,22 +69,28 @@ class Header extends Component {
                  }}>
                 {itm.title}
                 </div>
-            </Col>)
+            </Col></AnTransition>)
         }) : ''
 
         PopContainer.confirm({
-            content: (<div className="bg-262626 ">
+            content: (<div className="bg-262626 relative heighth-90">
                 <div className='width-100 text-align-right cursor-pointer' onClick={()=>{PopContainer.closeAll()}}>
                 <Icon iconName={'close-circled'} size={'200%'} iconColor={ '#fff'} /></div>
               <Row className="padding-all textcolor-868686 bg-262626">
                 {menuDom}
               </Row>
-              <Row justify={'center'} className='margin-top-5r padding-all-2r'>
+              <AnTransition
+                delay={7*300}
+                act={'enter'}
+                duration={166}
+                enter={'right-logo'}
+                leave={'right-out'}
+            ><Row justify={'center'} className='absolute width-100 bottom-1r margin-top-5r padding-all-2r'>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-octocat '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-twitter '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'paper-airplane '} size={'200%'} iconColor={ '#fff'} /></Col>
-              </Row>
+              </Row></AnTransition>
               </div>),
             type: 'right',
             containerStyle: { right: '0rem', width: pScreenWidth > 750 ? '35vw': '70vw', background: '#262626'},
@@ -93,18 +107,6 @@ class Header extends Component {
         const { screenWidth, location, containerScrollTop, MDdisplay, MDaction, menu, activeKey } = this.state;
         let pScreenWidth = screenWidth;
         const self = this;
-        let menuDom = menu&&menu.length > 0 ? menu.map((itm, idx)=>{
-            return (<Col span={24} key={`${idx}-men`} className={`${itm.path == activeKey ? 'menu-active':'menu-default'} transf text-align-center line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
-                <div className={` textcolor-6C727C font-size-14 cursor-pointer border-radius-9r menu-hover`} 
-                style={itm.path == activeKey ? { 'textDecoration': 'line-through', 'fontSize': '160%' } : { 'fontSize': '140%' } }
-                 onClick={()=>{ self.setState({'activeKey': itm.path});
-                 goLink(itm.path);
-                 self.hideResetModal()
-                 }}>
-                {itm.title}
-                </div>
-            </Col>)
-        }) : ''
 
         return(
             <div className='heighr-6 overflow-hide width-100 top-0 fixed zindex-20'>
@@ -116,29 +118,12 @@ class Header extends Component {
                 <Col span={12} className='text-align-center'>
                    <ImageMove  className={`middle-round-6 display-inline-block ${containerScrollTop > 500 ? 'hide-in': 'hide-out'}`} imgName='logo_b.png' />
                 </Col>
-                <Col span={6} className="relative text-align-right padding-top-1r zindex-20 cursor-pointer" onClick={()=>{this.showReset(screenWidth)}}>
+                <Col span={6} className="relative text-align-right padding-top-1r zindex-20 cursor-pointer" onClick={()=>{this.doSheet1(screenWidth)}}>
                     { containerScrollTop > 500 ? <Icon iconName={'navicon '} size={'240%'} iconColor={"#333"}  />: 
                 <Icon iconName={'navicon '} size={'240%'} iconColor={location!=='Home'? '#333' :"#fff"}  /> }
                 </Col>
                 {/* <Col className={`${ containerScrollTop > 500 ? 'bghand' : 'bgtrans'} heighr-6  absolute left-0 top-0`}></Col> */}
             </Row>
-            <ExModal display={MDdisplay} action={MDaction} disabledLayout='0' style={{width:'60%'}} options={{
-                content: (<div className="bg-262626 ">
-                <div className='width-100 text-align-right cursor-pointer' onClick={()=>{self.hideResetModal()}}>
-                <Icon iconName={'close-circled'} size={'200%'} iconColor={ '#fff'} /></div>
-              <Row className="padding-all textcolor-868686 bg-262626">
-                {menuDom}
-              </Row>
-              <Row justify={'center'} className='margin-top-5r padding-all-2r'>
-              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
-              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-octocat '} size={'200%'} iconColor={ '#fff'} /></Col>
-              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-twitter '} size={'200%'} iconColor={ '#fff'} /></Col>
-              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'paper-airplane '} size={'200%'} iconColor={ '#fff'} /></Col>
-              </Row>
-              </div>),
-                type: 'right',
-                containerStyle: { right: '0rem', width: pScreenWidth > 750 ? '35vw': '70vw', background: '#262626',},
-              }} />
             </div>
         );
     }
