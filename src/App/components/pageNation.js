@@ -59,10 +59,21 @@ class PageNation extends Component {
         let pageNumDom = []
         const self = this;
         if(allPage && allPage >= 1){
-            for(let i=1; i < allPage+1; i++){
-                pageNumDom.push(<span key={`num-${i}`} className={`padding-left-1r cursor-pointer padding-right-1r font-size-12 ${currentPage==i? 'textclolor-333' : 'textclolor-black-low'}`}
-                 onClick={()=>{ self.getData(i)}}>{i}</span>)
+            if(currentPage==allPage&&allPage>2){
+                pageNumDom.push(<span className={`padding-left-1r cursor-pointer padding-right-1r font-size-12 textclolor-333`}
+                    onClick={()=>{ self.preClick()}}>...</span>)
             }
+            for(let i=1; i < allPage+1; i++){
+                if(i==(currentPage-1)||i==currentPage||i==(currentPage+1)){
+                    pageNumDom.push(<span key={`num-${i}`} className={`padding-left-1r cursor-pointer padding-right-1r font-size-12 ${currentPage==i? 'textclolor-333' : 'textclolor-black-low'}`}
+                    onClick={()=>{ self.getData(i)}}>{i}</span>)
+                }
+            }
+            if(currentPage==1&&allPage>2){
+                pageNumDom.push(<span className={`padding-left-1r cursor-pointer padding-right-1r font-size-12 textclolor-333`}
+                    onClick={()=>{ self.nextClick()}}>...</span>)
+            }
+            
         }
         return(
             <Row className='line-height-3r relative' justify={'center'}>

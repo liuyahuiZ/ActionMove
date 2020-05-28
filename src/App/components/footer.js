@@ -41,7 +41,7 @@ class Footer extends Component {
             <Row className='bg-333 opacity-9'>
                 <Col className=" padding-bottom-1r  relative">
                     <Row className="zindex-10 padding-bottom-1r margin-bottom-3r relative " justify="center">
-                        <Col  span={18} className="margin-top-3r ">
+                        <Col  span={17} className="margin-top-3r ">
                             <div className="width-100 relative text-align-left line-height-3r textcolor-fff">关于</div>
                             <Row justify="center">
                                 <Col span={isPhone ? 16 :8} className='textclolor-black-low'>

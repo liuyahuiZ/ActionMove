@@ -48,7 +48,7 @@ div{box-sizing:border-box;-webkit-tap-highlight-color:rgba(255,255,255,0)}
    cursor:  pointer  
 }
 
-$opacity-list:1,2,3,4,5,6,7,8,9;
+$opacity-list:0,1,2,3,4,5,6,7,8,9;
 @each $opacity in $opacity-list{
 .opacity-#{$opacity}{opacity:#{$opacity/10};}
 }

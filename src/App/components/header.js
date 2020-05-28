@@ -85,7 +85,7 @@ class Header extends Component {
                 duration={166}
                 enter={'right-logo'}
                 leave={'right-out'}
-            ><Row justify={'center'} className='absolute width-100 bottom-1r margin-top-5r padding-all-2r'>
+            ><Row justify={'center'} className=' opacity-0 absolute width-100 bottom-1r margin-top-5r padding-all-2r'>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-octocat '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-twitter '} size={'200%'} iconColor={ '#fff'} /></Col>

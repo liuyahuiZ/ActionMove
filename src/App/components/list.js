@@ -35,9 +35,9 @@ class List extends Component {
               enter={'listTem-enter'}
               leave={'listTem-leave'}
               key={`${idx}-ops`}
-          ><Col className="textclolor-333 margin-bottom-3r" >
+          ><Col className="textclolor-333 margin-bottom-3r" span={24}>
                 <Row justify={'center'}>
-                    <Col span={isPhone ? 16 : 18}><Row className="padding-right-1r">
+                    <Col span={isPhone ? 16 : 18}><Row className="padding-right-2r">
                       <Col className='textclolor-333 font-size-big cursor-pointer' onClick={()=>{showArticleDetail(itm)}}>{itm.title}</Col>
                       <Col className='textclolor-black-low font-size-small margin-top-1r'>作者 {itm.user} / 发布于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD ')}  / 查看 {itm.sea} / 属于 {itm.type}</Col>
                       <Col className='textclolor-333 font-size-normal'>{itm.info}</Col>
