@@ -119,7 +119,7 @@ class MusicCategory extends BaseView {
                     }} />
                 </Col>
             </Row>
-            <Row className=" padding-all heighth-65 overflow-y-scroll">
+            <Row className=" padding-all padding-top-0 heighth-65 overflow-y-scroll">
             {cateGoryDom}
             </Row>
             <Row><Col><Music musicList={musicList} ref={(r) => { this.$$theMusic = r; }} /></Col></Row>
