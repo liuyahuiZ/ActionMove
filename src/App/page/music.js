@@ -25,6 +25,7 @@ class Music extends Component {
         nowIndex: storage.getStorage('nowIndex')||0,
         autoPlay: '',
         theLyric: storage.getStorage('theLyric')|| {lyric: ''},
+        isPhone: sessions.getStorage('screenWidth') < 800 
       };
       this.doPopContainer = this.doPopContainer.bind(this);
     }
@@ -155,10 +156,10 @@ class Music extends Component {
     }
 
     doPopContainer(){
-      const {musicList, theMusic} = this.state;
+      const {musicList, theMusic, isPhone} = this.state;
       const self = this;
       const musicListDom = musicList&&musicList.length>0 ?musicList.map((itm, idx)=>{
-        return (<Row className="padding-all border-radius-5f border-bottom border-color-e5e5e5 padding-bottom-3 bg-show" key={`${idx}-itm`} onClick={()=>{
+        return (<Row className="padding-all-1r border-radius-5f border-bottom border-color-e5e5e5 padding-bottom-3 bg-show" key={`${idx}-itm`} onClick={()=>{
           self.getMusicDetail(itm, idx)
         }}>
           <Col span={4}>
@@ -177,7 +178,7 @@ class Music extends Component {
       }): '';
       PopContainer.confirm({
         content: (<Row>
-          <Col className="padding-all border-bottom border-color-e5e5e5">列表共有{musicList.length}首</Col>
+          <Col className="padding-all-1r border-bottom border-color-e5e5e5">列表共有{musicList.length}首</Col>
           <Col className="heighth-60 overflow-y-scroll">{musicListDom}</Col>
           <Col className="text-align-center line-height-3r" onClick={()=>{PopContainer.closeAll()}}>关闭</Col>
           </Row>),

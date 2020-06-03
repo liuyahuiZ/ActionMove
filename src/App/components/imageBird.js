@@ -1,4 +1,5 @@
 import React , { Component }from 'react';
+import PropTypes from 'prop-types';
 import { Components, utils } from 'neo';
 const { Row, Col, Icon } = Components;
 import config from '../config/config'  
@@ -10,6 +11,7 @@ class ImageBird extends Component {
          imgName: this.props.imgName,
          className: this.props.className,
          loadStatus: 'LOADING',
+         imgText: this.props.imgName ? '加载中...': '暂无数据'
       };
     }
     componentDidMount() {
@@ -23,17 +25,40 @@ class ImageBird extends Component {
     }
 
     render() {
-        const { imgName, className, loadStatus, display } = this.state;
+        const { imgName, className, loadStatus, display, imgText } = this.state;
+        const { showText } = this.props;
         const self = this;
         return(
         <div className={`width-100 ${loadStatus=='LOADING'? 'img_bg': ''} `}>
-         <img onLoad={()=>{ console.log('load complate');
+         {loadStatus=='ERROR'? '' :<img onLoad={()=>{ console.log('load complate');
             self.setState({
-                loadStatus: 'LOADED'
+                loadStatus: 'LOADED',
+                imgText: ''
             })
-         }} className={`width-100 ${className}`} src={`${config.ROOT_URL}files/getTheImage?path=${imgName}`} />
+         }} onError={()=>{
+            this.setState({
+              loadStatus: 'ERROR',
+              imgText: '加载失败'
+            })
+        }} className={`width-100 ${className}`} src={`${config.ROOT_URL}files/getTheImage?path=${imgName}`} /> }
+          <div className={`width-100 text-align-center ${loadStatus=='ERROR'||!imgName ? 'icon_bg': ''}`} >{ loadStatus=='ERROR'||!imgName ? <Icon iconName='image' size="300%" /> : ''}</div>
+          {/* <div className='width-100 text-align-center'>{ showText ? imgText : '' }</div> */}
          </div>
         );
     }
 }
+ImageBird.propTypes = {
+    style: PropTypes.shape(),
+    onClick: PropTypes.func,
+    className: PropTypes.string,
+    showText: PropTypes.bool
+  };
+  
+ImageBird.defaultProps = {
+    style: {},
+    onClick: () => {},
+    className: '',
+    showText: true
+  };
+  
 export default ImageBird;

@@ -21,7 +21,7 @@ const {
     Switch,
     Loade,
     RandomNumber,
-    TransAnimal,
+    TransAnimal,Image,
     Search, Input
   } = Components;
 const { sessions, storage } = utils;
@@ -88,6 +88,7 @@ class MusicCategory extends BaseView {
                 self.setState({
                     musicList: res.result.songs
                 },()=>{self.$$theMusic.doPopContainer()})
+                storage.setStorage('musicList', res.result.songs)
             } else{
                 self.setState({
                     musicList: []
@@ -105,12 +106,13 @@ class MusicCategory extends BaseView {
         let cateGoryDom = categoryList&&categoryList.length > 0 ? categoryList.map((itm, idx)=>{
             return (<Col span={isPhone? 12 :6} className={'padding-all-3x margin-bottom-1r '} key={`${idx}-itm`} onClick={()=>{self.getMusicList(itm)}}>
             <Row className="border-radius-5f padding-bottom-3 bg-show overflow-hide">
-                <Col span={24} className={"font-size-8"}><img alt="text" className="width-100" src={itm.coverImgUrl} /></Col>
+                <Col span={24} className={"font-size-8"}><Image alt="text" className="width-100" value={itm.coverImgUrl} /></Col>
                 <Col span={24} className={"font-size-8 text-overflow padding-all"}>{itm.name}</Col>
             </Row></Col>)
         }):''
-        return (<section className="bg-f5f5f5 minheight-100">
-            <Row justify="center" className="padding-all">
+        return (<section className="bg-f5f5f5">
+            <Row justify='center'><Col span={isPhone?24:20} className='content-dom'>
+            <Row justify="center" className="padding-all content-dom">
                 <Col span={12} className="line-height-3r font-size-12">音乐列表</Col>
                 <Col span={12} className="">
                     <MusicSearch callBack={(k)=>{
@@ -119,10 +121,11 @@ class MusicCategory extends BaseView {
                     }} />
                 </Col>
             </Row>
-            <Row className=" padding-all padding-top-0 heighth-65 overflow-y-scroll">
+            <Row className="content-dom padding-all padding-top-0 heighth-65 overflow-y-scroll">
             {cateGoryDom}
             </Row>
-            <Row><Col><Music musicList={musicList} ref={(r) => { this.$$theMusic = r; }} /></Col></Row>
+            </Col></Row>
+            <Row ><Col><Music musicList={musicList} ref={(r) => { this.$$theMusic = r; }} /></Col></Row>
         </section>)
     }
 }

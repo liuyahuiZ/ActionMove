@@ -216,7 +216,7 @@ class HomeDoc extends Component {
                         </Row>
                     </div>
                 </Col>
-                <Col className={"fixed top-0 width-100 zindex-0 overflow-hide"}> 
+                <Col className={"fixed top-0 width-100 zindex-0 overflow-hide heighth-100"}> 
                     <AnimateBanner />
                 </Col>
                 <Col className="zindex-10 bg-show" >

@@ -121,7 +121,7 @@ class LayOut extends Component {
                 leave={ (compontArr.length ==1) ? actionArr[idx].enter : actionArr[idx].leave}
                 key={`${item.props.location.pathname}-com`}
                 >
-                <div className={`pageContent ${item.props.location.pathname !=='/Home' ? 'has-header': ''} transf pages`} style={{zIndex: ZIndex + idx}}>{item}</div>
+                <div className={`pageContent ${item.props.location.pathname !=='/Home' ? 'has-header': ''} transf pages scroller-thin`} style={{zIndex: ZIndex + idx}}>{item}</div>
                 </PageTransition>);
         });
         return(

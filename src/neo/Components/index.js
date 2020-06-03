@@ -14,6 +14,7 @@ import Modal from './Modal';
 import Loading from './Loading';
 import Dynamic from './Dynamic';
 import Loader from './Loader';
+import Image from './Image';
 import Loade from './Loader/loade';
 import Tab from './Tab';
 import Grid from './Grid';
@@ -114,6 +115,7 @@ export {
   PageTransition,
   List,
   Item,
+  Image,
   Search,
   ActionSheet,
   PopSelect,

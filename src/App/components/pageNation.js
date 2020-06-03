@@ -13,7 +13,7 @@ class PageNation extends Component {
          pageNumber: pageNumber,
          allPage: allPage,
          allCount: allCount,
-         currentPage: currentPage,
+         currentPage: pageNumber,
       };
     }
     componentDidMount() {
@@ -26,7 +26,7 @@ class PageNation extends Component {
             pageNumber: pageNumber,
             allPage: allPage,
             allCount: allCount,
-            currentPage: currentPage,
+            currentPage: pageNumber,
         })
     }
 

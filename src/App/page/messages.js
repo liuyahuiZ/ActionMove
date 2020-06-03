@@ -70,6 +70,7 @@ class Messages extends Component {
       this.setState({[key]: val});
     }
 
+
     addMsg(){
       const self = this;
       const { phone, name, email, currentPage,  pageSize} = this.state
@@ -109,7 +110,7 @@ class Messages extends Component {
       const self = this;
       let messageDom = messageList&&messageList.length>0 ? messageList.map((itm, idx)=>{
         return (<AnTransition
-          delay={idx*600}
+          delay={(idx)*600}
           act={'enter'}
           duration={166}
           enter={'listTem-enter'}
@@ -124,28 +125,34 @@ class Messages extends Component {
         </Col></AnTransition>)
     }) : <LoadText loadTextStatus={loadStatus} refreshBack={()=>{this.props.getMessageList()}} ></LoadText>
         return(
-          <section className="bg-f5f5f5">
+          <section className="bg-f5f5f5" >
             <Row className="padding-all " justify='center'>
-                <Col span={isPhone? 24: 20} className="bg-show margin-top-2 padding-all-1r border-radius-5f content-dom" >
+                <Col span={isPhone? 24: 20} className="bg-show margin-top-2 padding-top-2r overflow-hide padding-left-1r padding-right-1r padding-bottom-3r border-radius-5f content-dom" >
                   <Row className="">
-                      <Col span={3} className="text-align-center">
-                        <Icon iconName={'android-happy'} size={'190%'} iconColor={'#333'} /> 
-                      </Col>
-                      <Col span={21}>
-                      <Input
-                          value={name}
-                          placeholder="请输入称呼"
-                          maxLength={100}
-                          onChange={(e,t,v)=>{
-                              self.setValue('name',v)
-                          }}
-                          />
-                      </Col>
+                      <AnTransition delay={300} act={'enter'} duration={166} enter={'small-left-in'} leave={'left-out'}>
+                        <Col span={3} className="text-align-center">
+                        <Icon iconName={'android-happy'} size={'190%'} iconColor={'#333'} />
+                        </Col></AnTransition>
+                      <AnTransition delay={5*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
+                        <Col span={21}>
+                        <Input
+                            value={name}
+                            placeholder="请输入称呼"
+                            maxLength={100}
+                            onChange={(e,t,v)=>{
+                                self.setValue('name',v)
+                            }}
+                            />
+                        </Col>
+                      </AnTransition>
                   </Row>
                   <Row className="margin-top-1r">
+                      <AnTransition delay={2*300} act={'enter'} duration={166} enter={'small-left-in'} leave={'left-out'}>
                       <Col span={3} className=" text-align-center">
                         <Icon iconName={'iphone'} size={'250%'} iconColor={'#333'} /> 
                       </Col>
+                      </AnTransition>
+                      <AnTransition delay={6*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
                       <Col span={21}>
                       <Input
                           value={phone}
@@ -156,11 +163,15 @@ class Messages extends Component {
                           }}
                           />
                       </Col>
+                      </AnTransition>
                   </Row>
                   <Row className="margin-top-1r">
+                      <AnTransition delay={3*300} act={'enter'} duration={166} enter={'small-left-in'} leave={'left-out'}>
                       <Col span={3} className=" text-align-center">
                         <Icon iconName={'email'} size={'190%'} iconColor={'#333'} /> 
                       </Col>
+                      </AnTransition>
+                      <AnTransition delay={7*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
                       <Col span={21}>
                       <Input
                           value={email}
@@ -171,22 +182,30 @@ class Messages extends Component {
                           }}
                           />
                       </Col>
+                      </AnTransition>
                   </Row>
                   <Row className="margin-top-1r">
+                      <AnTransition delay={4*300} act={'enter'} duration={166} enter={'small-left-in'} leave={'left-out'}>
                       <Col span={3} className=" text-align-center">
                         <Icon iconName={'chatbox-working'} size={'190%'} iconColor={'#333'} /> 
                       </Col>
-                      <Col span={21} className="margin-top-1">
+                      </AnTransition>
+                      <AnTransition delay={8*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
+                      <Col span={18} className="margin-top-1">
                       <Editor
                           ref={(r)=>{
                             self.$$editor = r
                           }}
                           />
                       </Col>
+                      </AnTransition>
                   </Row>
                 </Col>
+                <AnTransition delay={9*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
                 <Col span={isPhone? 20 : 18} className='font-size-small margin-top-2r textclolor-black-low'>留言会公开显示，请勿在留言内容写下微信号等私人联系方式，谨防诈骗。如果你不想发布公开留言，也可以发送邮件到 liuyahui991@gmail.com 与我联系。
                 </Col>
+                </AnTransition>
+                <AnTransition delay={10*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
                 <Col span={isPhone? 20 :7} className="margin-top31r padding-all-1r" >
                   <Buttons
                     text="提交"
@@ -198,10 +217,14 @@ class Messages extends Component {
                     }}
                   />
                 </Col>
+                </AnTransition>
+                <AnTransition delay={12*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
                 <Col span={isPhone? 24: 20} >
                   <Row className="width-100 textcolor-288767 font-size-large margin-top-3r">留言板</Row>
                   <Row>{messageDom}</Row>
                 </Col>
+                </AnTransition>
+                <AnTransition delay={13*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
                 <Col span={isPhone? 20 : 18}>
                 <PageNation getData={(pageNum)=>{
                 self.setState({
@@ -210,7 +233,7 @@ class Messages extends Component {
                 
                 }} pageInfo={pageInfo} />
                 </Col>
-                
+                </AnTransition>
             </Row>
             {/* </div> */}
           </section>
