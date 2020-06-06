@@ -3,6 +3,7 @@ import { Components, utils } from 'neo';
 import { hashHistory } from 'react-router';
 import ImageMove from './imageMove';
 import { goLink, getHeaderClass } from '../utils/common';
+import { socketLogin } from '../servise/socketClient';
 const { Row, Col, Icon, PopContainer, ExModal, AnTransition } = Components;
 
 const { sessions, storage } = utils;
@@ -21,12 +22,16 @@ class Header extends Component {
           {title: '博客', path: '/ArticleList'},
           {title: '音乐', path: '/MusicCategory'},
           {title: '留言', path: '/Messages'},
-          {title: '日历', path: '/Clender'}],
+          {title: '日历', path: '/Clender'},
+          {title: '聊天室', path: '/Chat'}],
         MDdisplay: '',
         MDaction: 'enter',
       };
     }
     componentDidMount() {
+        socketLogin((res)=>{
+            console.log('res', res);
+        })
     }
     componentWillReceiveProps(nextProps){
         this.setState({

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import {isPC} from '../../utils/url';
 
 class TransAnimal extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class TransAnimal extends Component {
   drag(self, arr) {
     const content = this.$$transContent;
     this.arr = arr;
+    let lock = false;
     content.addEventListener('touchstart', (e) => {
       // e.preventDefault();
       if(self.state.refresh) {
@@ -66,6 +68,38 @@ class TransAnimal extends Component {
         styles: ''
       })
     }, false);
+
+    if(isPC()){
+      content.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        self.setState({ 
+          startX: e.pageX, 
+          startY: e.pageY, 
+          lock: true,
+          startTime:  Date.now()
+        });
+        lock = true
+      }, false);
+
+      content.addEventListener('mousemove', (e) => {
+        e.preventDefault();
+        if(lock) {
+          const touch = {touches: [{pageX: e.pageX, pageY: e.pageY}]}
+          let style =  this.processMovement(touch,true,content);
+          self.setState({
+            styles: style
+          })
+        }
+        
+      }, false);
+      content.addEventListener('mouseup', (e) => {
+
+        lock = false
+        self.setState({
+          styles: 'none'
+        })
+      }, false);
+    }
   }
 
   processMovement(e, touchEnabled, elem){

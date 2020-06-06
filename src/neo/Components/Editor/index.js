@@ -12,12 +12,13 @@ class Editor extends Component {
       focus: false
     };
     this.getValue = this.getValue.bind(this);
+    this.setValue = this.setValue.bind(this);
     this.editor = new wangEditor('#wangEditor') 
   }
 
   componentWillReceiveProps(nextProps) {
     const self = this;
-    if(nextProps.value){
+    if(nextProps.value!=undefined){
       this.setState({
         value: nextProps.value
       },()=>{
@@ -49,6 +50,10 @@ class Editor extends Component {
     return data;
   }
 
+  setValue(value){
+    const self = this;
+    self.editor.txt.html(value)
+  }
 
   render() {
     return (

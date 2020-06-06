@@ -219,27 +219,29 @@ day2
 day3
 分页，音乐， keepAlive，banner性能优化
 
-day 4
-图表， 留言， 文章评论，个人收藏（卡片形式）， banner动态化，
 
-day5
+day4
  banner动态化，
 首页加载优化
 keepAlive页面优化
 音乐页面优化
 留言
 
-day6 
+day5 
 文章评论功能，
 评论列表展示
 留言列表
 
-day7 
+day6 
 阿里云服务器部署nginx，node，mongo
 解决阿里云mongo启动问题 --fork
 
-day8 
+day7 
 banner 跟进code获取
 查询框动态效果
 首页列表根据查看量排序
 
+day8 6-3
+修复手机下动态banner的图片宽度问题
+优化Image组件
+优化列表页

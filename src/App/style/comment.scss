@@ -339,7 +339,11 @@ p{
     
     box-shadow:  0px 0px 25px 0px #fff;
 }
-
+.editor {
+    .w-e-text-container{
+        height: 70px!important;
+    }
+}
 .imgpic {
     transition: .7s all;
     opacity: 0.8;

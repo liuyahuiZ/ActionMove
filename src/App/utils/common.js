@@ -54,5 +54,6 @@ export function getUser(){
     let username = randomString(5);
     let userClient = userid + username;
     storage.setStorage('userClient', userClient);
+    storage.setStorage('userName', username);
     return userClient;
 }

@@ -201,7 +201,6 @@ class PullRefresh extends Component {
           if (self.state.aboveX > self.state.limitlow) {
             self.startLoading();
           } else {
-            debugger
             self.moveToStart();
           }
         }

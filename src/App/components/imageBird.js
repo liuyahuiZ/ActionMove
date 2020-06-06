@@ -30,7 +30,7 @@ class ImageBird extends Component {
         const self = this;
         return(
         <div className={`width-100 ${loadStatus=='LOADING'? 'img_bg': ''} `}>
-         {loadStatus=='ERROR'? '' :<img onLoad={()=>{ console.log('load complate');
+         {loadStatus=='ERROR'? '' :<img onLoad={()=>{
             self.setState({
                 loadStatus: 'LOADED',
                 imgText: ''

@@ -62,7 +62,7 @@ class Clender extends BaseView {
             <Row justify={"center"} >
                 <Col className="line-height-3r font-size-12" span={isPhone? 24: 20}>日历</Col>
                 <Col span={isPhone? 24: 20}>
-                    <Row justify={"center"} className="padding-all-1r  bg-show border-radius-5f box-shadow">
+                    <TransAnimal><Row justify={"center"} className="padding-all-1r  bg-show border-radius-5f box-shadow">
                     <Col span={12}>
                         {moment().format('YYYY-MM-DD')}
                     </Col>
@@ -79,7 +79,7 @@ class Clender extends BaseView {
                     <Col className="margin-top-1r">
                         <Progress percent={ computed.accMul((nowDay / allDay), 100) } barColor={'#FF6157'} radius={2} />
                     </Col>
-                    </Row>
+                    </Row></TransAnimal>
                 </Col>
             </Row>
             

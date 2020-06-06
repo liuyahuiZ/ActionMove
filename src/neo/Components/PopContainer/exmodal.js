@@ -57,7 +57,7 @@ class ExModal extends Component {
   render() {
     const self = this;
     const { options, action, display, hideDom } = this.state;
-    console.log('action', action)
+    // console.log('action', action)
     const contbg = display==='show' ? (<Transition
       act={action}
       duration={166}
