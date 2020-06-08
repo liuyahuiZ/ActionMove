@@ -30,7 +30,7 @@ class Header extends Component {
     }
     componentDidMount() {
         socketLogin((res)=>{
-            console.log('res', res);
+            console.log(res)
         })
     }
     componentWillReceiveProps(nextProps){

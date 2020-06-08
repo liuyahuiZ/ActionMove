@@ -46,12 +46,13 @@ function randomString (len) {
 
 export function getUser(){
     let user = storage.getStorage('userClient');
-    if(user) {
+    let username = storage.getStorage('userName');
+    if(user&&username) {
       return user
     }
     let tmp_name = (Date.parse(new Date())/1000);
     let userid = 'user-' + tmp_name + '-' + (Math.round(Math.random()*9999));
-    let username = randomString(5);
+    username = randomString(5);
     let userClient = userid + username;
     storage.setStorage('userClient', userClient);
     storage.setStorage('userName', username);

@@ -79,7 +79,7 @@ class Chat extends Component {
       const self = this;
       let messageDom = messageList.map((itm, idx)=>{
         return (<AnTransition
-          delay={(idx)*600}
+          delay={(idx)*200}
           act={'enter'}
           duration={166}
           enter={'listTem-enter'}
@@ -92,7 +92,7 @@ class Chat extends Component {
                   </Col>
                   <Col style={{width: 'auto'}} className={`display-inline-block textclolor-333 font-size-normal padding-left-1r padding-top-fm padding-bottom-fm padding-right-1r border-radius-5f ${itm.userid==userId? 'textcolor-fff bg-6E9EFB': 'textclolor-black-low bg-show'}`}>
                     <div dangerouslySetInnerHTML={{__html: itm.content}} />
-                    <div className={`font-size-small ${itm.userid==userId? 'textcolor-fff': 'textclolor-black-low'} margin-top-1r`}>{itm.username} | {date.momentFormate(itm.createTime, 'HH:mm:ss')}</div>
+                    <div className={`font-size-small ${itm.userid==userId? 'textcolor-fff': 'textclolor-black-low'} margin-top-1r`}>{itm.username} | {date.momentFormate(itm.time, 'YYYY-MM-DD HH:mm')}</div>
                   </Col>
                 </Row>
             </Col></AnTransition>)
@@ -102,7 +102,7 @@ class Chat extends Component {
             <Row className="padding-all " justify='center'>
                 <Col span={isPhone? 24: 20} className='heighth-60 overflow-y-scroll padding-right-1r'>
                 <div className='width-100 display-inline-block text-align-center font-size-small textclolor-black-low'>当前在线人数（{nowAccount}）</div>
-                <Row>{messageDom}</Row>
+                <Row className="margin-top-1r">{messageDom}</Row>
                 </Col>
                 <Col span={isPhone? 24: 20} className="bg-show margin-top-2 padding-top-1r overflow-hide padding-left-1r padding-right-1r padding-bottom-1r border-radius-5f content-dom" >
                   <Row className="" justify='center'>
