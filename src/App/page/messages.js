@@ -202,7 +202,7 @@ class Messages extends Component {
                   </Row>
                 </Col>
                 <AnTransition delay={9*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>
-                <Col span={isPhone? 20 : 18} className='font-size-small margin-top-2r textclolor-black-low'>留言会公开显示，请勿在留言内容写下微信号等私人联系方式，谨防诈骗。如果你不想发布公开留言，也可以发送邮件到 liuyahui991@gmail.com 与我联系。
+                <Col span={isPhone? 20 : 18} className='font-size-small margin-top-2r textclolor-black-low'>留言会公开显示，请勿在留言内容写下微信号等私人联系方式，谨防诈骗。如果你不想发布公开留言，也可以发送邮件到 690385384@qq.com 与我联系。
                 </Col>
                 </AnTransition>
                 <AnTransition delay={10*300} act={'enter'} duration={166} enter={'right-logo'} leave={'right-out'}>

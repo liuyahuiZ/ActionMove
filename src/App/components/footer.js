@@ -49,7 +49,7 @@ class Footer extends Component {
                                         <Col span={4} className="text-align-center"><Icon iconName={'android-happy '} size={'200%'} iconColor={ '#fff'} /></Col>
                                         <Col span={19}>Mr.Andsen</Col>
                                         <Col span={4} className="text-align-center"><Icon iconName={'android-mail '} size={'180%'} iconColor={ '#fff'} /></Col>
-                                        <Col span={19}>liuyahui991@gmail.com</Col>
+                                        <Col span={19}>690385384@qq.com</Col>
                                         <Col span={4} className="text-align-center"><Icon iconName={'android-phone-portrait '} size={'200%'} iconColor={ '#fff'} /></Col>
                                         <Col span={19}>13162698677</Col>
                                         <Col span={4} className="text-align-center"><Icon iconName={'clock '} size={'200%'} iconColor={ '#fff'} /></Col>
