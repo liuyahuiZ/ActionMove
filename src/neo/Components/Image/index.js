@@ -9,15 +9,30 @@ class Image extends Component {
     this.state = {
       options: [],
       loadStatus: 'LOADING',
-      imgText: this.props.value ? '加载中...': '暂无数据'
+      imgText: this.props.value ? '加载中...': '暂无数据',
+      imageURl: this.props.imageURl,
+      value: this.props.value,
+      className: this.props.className,
+      innerStyle: this.props.innerStyle,
+      showText: this.props.showText
     };
   }
   componentDidMount() {
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log('nextProps', nextProps)
+    if(nextProps.imageURl!==this.state.imageURl){
+      this.setState({
+        imageURl: nextProps.imageURl,
+        value: nextProps.value,
+        className: nextProps.className
+      })
+    }
+  }
+
   render() {
-    const { imageURl, value, className, innerStyle, showText } = this.props;
-    const { loadStatus, imgText } = this.state
+    const { imageURl, value, className, innerStyle, showText, loadStatus, imgText } = this.state
     console.log('imageURl', imageURl, loadStatus)
     let rootUrl = imageURl
     if(imageURl&&imageURl.indexOf('${')>=0&&value){

@@ -18,10 +18,16 @@ class ImageBird extends Component {
     }
   
     componentWillReceiveProps(nextProps){
-        this.setState({
-            className: nextProps.className,
-            action: nextProps.action,
-        })
+        console.log('nextProps', nextProps)
+        if(nextProps.imgName!==this.state.imgName){
+            this.setState({
+                className: nextProps.className,
+                action: nextProps.action,
+                imgName: nextProps.imgName,
+                loadStatus: 'LOADING',
+            })
+        }
+        
     }
 
     render() {

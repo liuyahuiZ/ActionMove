@@ -90,7 +90,7 @@ class PayDoc extends Component {
         const { articleListArr, enableLoad, loadStatus, typeListArr, typeloadStatus, pageInfo, currentPage, pageSize, searchObg, activeType, isPhone } = this.state;
         const self = this;
         let typeDom = typeListArr&&typeListArr.length>0 ? typeListArr.map((itm, idx)=>{
-            return (<Col span={isPhone ? 10 : 6} className={` textclolor-333 margin-bottom-2r relative margin-right-1r padding-all-1r border-radius-5f overflow-hide cursor-pointer`} key={`${idx}-article`}
+            return (<Col span={isPhone ? 10 : 6} className={` textclolor-333 margin-bottom-2r relative margin-right-1r padding-all-1r border-radius-5f overflow-hide cursor-pointer`} key={`${itm._id}-article`}
             onClick={()=>{
                 let typeValue = itm.typeValue
                 let searchObg = { type: itm.typeValue}

@@ -22,9 +22,9 @@ class Editor extends Component {
       this.setState({
         value: nextProps.value
       },()=>{
-        setTimeout(()=>{
-          self.editor.txt.html(nextProps.value)
-         }, 1000)
+        // setTimeout(()=>{
+        //   self.editor.txt.html(nextProps.value)
+        //  }, 1000)
       });
     }
   }
