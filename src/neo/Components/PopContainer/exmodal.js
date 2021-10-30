@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './style';
 import Transition from '../Transition';
 import PageTransition from '../PageTransition';
+import '../Style/Animate.scss';
 
 class ExModal extends Component {
   constructor(props) {
@@ -74,12 +75,12 @@ class ExModal extends Component {
       duration={166}
       enter={`actionSheet-${options.type}enter`}
       leave={`actionSheet-${options.type}leave`}
-    ><div className="scroller" style={Object.assign({}, styles.cont, options.containerStyle)}>{options.content}</div></PageTransition>: '';
+    ><div className="scroller" style={Object.assign({}, display=='show' ? styles.show : styles.hide ,styles.cont, options.containerStyle)}>{options.content}</div></PageTransition>: '';
 
     return (
       <div style={Object.assign({}, styles.container) } className="transi">
         {cellDom}
-        {contbg}
+        {/* {contbg} */}
       </div>
     );
   }

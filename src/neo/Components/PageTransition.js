@@ -51,7 +51,7 @@ export default class PageTransition extends React.Component {
     setTimeout(() => {
       removeClass(el, leave);
       addClass(el, enter);
-    }, 10);
+    }, 300);
   }
 
   leave() {
@@ -61,7 +61,7 @@ export default class PageTransition extends React.Component {
     setTimeout(() => {
       removeClass(el, enter);
       addClass(el, leave);
-    }, 10);
+    }, 300);
   }
 
   render() {

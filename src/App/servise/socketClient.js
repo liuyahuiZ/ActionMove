@@ -4,8 +4,8 @@ import { utils } from 'neo';
 const { storage } = utils;
 const userId = storage.getStorage('userClient')
 const userName = storage.getStorage('userName')
-let socket = io.connect('ws://localhost:2019');
-// let socket = io.connect('wss://www.wetalks.cn',{path: '/socket.io'});
+let socket = io.connect('ws://localhost:3000');
+// let socket = io.connect('wss://www.wetalks.cn');
 // let socket = io.connect('wss://www.wetalks.cn/nodeApi',{path: '/socket.io'});
 export function socketLogin(callback){
     socket.emit('login', {userid: userId, username: userName});

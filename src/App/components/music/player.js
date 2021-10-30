@@ -16,8 +16,8 @@ class MusicPlayer extends Component {
       this.state = {
         options: this.props.options ||{},
         autoPlay: '',
-        MDdisplay: '',
-        MDaction: '',
+        MDdisplay: 'hide',
+        MDaction: 'leave',
         isPhone: sessions.getStorage('screenWidth') < 800 
       };
     }
@@ -94,7 +94,7 @@ class MusicPlayer extends Component {
                   <div className="absolute top-0 width-100 heighth-100 img_bg " style={{background}}></div>
                   </div>),
               type: 'bottom',
-              containerStyle: { top: '3rem'},
+              containerStyle: { },
               }} />
               </div>
         );

@@ -58,12 +58,12 @@ class Footer extends Component {
                                 </Col>
                                 <Col span={16}>
                                     <div className="width-100 line-height-2r font-size-small textclolor-black-low">
-                                    <p>Coder Mr.Andsen, 技术宅，设计爱好者，动漫迷，游戏迷，目前工作地 上海浦东<br/>技术栈 ：web前端，UI设计，nodejs koa2 mongodb，react，vue，ReactNative <br/>
+                                    <p>Coder Mr.Andsen, 技术宅，设计爱好者，动漫迷，游戏迷，目前工作地 上海<br/>技术栈 ：web前端，UI设计，nodejs koa2 mongodb，react，vue，ReactNative <br/>
                                     GitHub个人主页地址： <a className='font-size-small textclolor-black-low' target='_blank' href="https://github.com/liuyahui">https://github.com/liuyahuiZ</a><br/>
                                     站酷个人主页地址：<a className='font-size-small textclolor-black-low' target='_blank' href="http://paoying.zcool.com.cn">http://paoying.zcool.com.cn</a><br/></p>
                                     </div>
                                     <div className='width-100 line-height-2r'><a className='font-size-small textclolor-black-low' target='_blank' href="http://www.beian.miit.gov.cn/">沪ICP备20015330号</a></div>
-                                    <div className='width-100 line-height-2r font-size-small textclolor-black-low'>Copyright © 2016-2021 wetalks.cn All Rights Reserved</div>
+                                    <div className='width-100 line-height-2r font-size-small textclolor-black-low'>Copyright © 2016-2022 wetalks.cn All Rights Reserved</div>
                                 </Col>
                                 
                             </Row>

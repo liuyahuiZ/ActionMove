@@ -14,7 +14,7 @@ export default {
     backgroundColor: '#fff',
     fontSize: '1rem',
     minHeight: '10vh',
-    bottom: '0px',
+
   },
   boxbg: {
     display: 'block',
