@@ -51,6 +51,10 @@ class Header extends Component {
           MDaction: 'leave',
         })
     }
+
+    jumpTo(url){
+        url && window.open(url);
+    }
     
     doSheet1(screenWidth){
         const { location, containerScrollTop, menu, activeKey } = this.state;
@@ -78,7 +82,7 @@ class Header extends Component {
         }) : ''
 
         PopContainer.confirm({
-            content: (<div className="bg-262626 relative heighth-90">
+            content: (<div className="bg-262626 relative heighth-100">
                 <div className='width-100 text-align-right cursor-pointer' onClick={()=>{PopContainer.closeAll()}}>
                 <Icon iconName={'close-circled'} size={'200%'} iconColor={ '#fff'} /></div>
               <Row className="padding-all textcolor-868686 bg-262626">
@@ -91,7 +95,7 @@ class Header extends Component {
                 enter={'right-logo'}
                 leave={'right-out'}
             ><Row justify={'center'} className=' opacity-0 absolute width-100 bottom-1r margin-top-5r padding-all-2r'>
-              <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
+              <Col span={6} className='text-align-center cursor-pointer' onClick={()=> { this.jumpTo('https://github.com/liuyahuiZ'); }}><Icon iconName={'social-github '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-octocat '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'social-twitter '} size={'200%'} iconColor={ '#fff'} /></Col>
               <Col span={6} className='text-align-center cursor-pointer'><Icon iconName={'paper-airplane '} size={'200%'} iconColor={ '#fff'} /></Col>

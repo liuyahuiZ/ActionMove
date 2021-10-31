@@ -128,7 +128,7 @@ $maxwidth-list:30,40,50,60,65,70;
 	.maxwidth-#{$maxwidth}{max-width:#{$maxwidth*1%};}
 }
 /*width*/
-$width-list:30,40,50,60,65,70,80,90,100,120;
+$width-list:30,40,50,60,65,70,80,90,100,120,150;
 @each $width in $width-list{
 	.width-#{$width}{width:#{$width*1%};}
 }

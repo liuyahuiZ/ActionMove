@@ -14,7 +14,8 @@ class AnimateBanner extends Component {
          dotNum: 0,
          options: [{enterClass: 'move-to-right', leaveClass: ''},
             {enterClass: 'move-to-bottom', leaveClass: ''},
-            {enterClass: 'move-to-left', leaveClass: ''}],
+            {enterClass: 'move-to-left', leaveClass: ''},
+            {enterClass: 'move-to-top', leaveClass: ''}],
          screenWidth: sessions.getStorage('screenWidth'),
          banners:[],
          isPhone: sessions.getStorage('screenWidth') < 800 
@@ -62,7 +63,7 @@ class AnimateBanner extends Component {
     render() {
         const { imgName, dotNum, options, screenWidth, banners, isPhone } = this.state;
         const imgDom = banners&&banners.length>0 ? banners.map((itm, idx)=>{
-            return <ImageBirdMove action={dotNum !== idx ? 'leave' :'enter'} key={`${idx}-img`} style={{}} className={`${options[idx%3].enterClass} ${ isPhone ? 'heighth-120 width-auto'  : 'width-120'}`} imgName={itm.imgGroup} />
+            return <ImageBirdMove action={dotNum !== idx ? 'leave' :'enter'} key={`${idx}-img`} style={{}} className={`${options[idx%3].enterClass} ${ isPhone ? 'heighth-120 width-auto'  : 'width-150'}`} imgName={itm.imgGroup} />
         }) : ''
         return(
             <div className='relative bg-000'>

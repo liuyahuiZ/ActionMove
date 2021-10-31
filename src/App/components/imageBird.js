@@ -18,7 +18,6 @@ class ImageBird extends Component {
     }
   
     componentWillReceiveProps(nextProps){
-        console.log('nextProps', nextProps)
         if(nextProps.imgName!==this.state.imgName){
             this.setState({
                 className: nextProps.className,
