@@ -58,6 +58,7 @@ class Clender extends BaseView {
               ]
         });
         const self = this;
+        console.log('show_lunar_calendar', show_lunar_calendar());
         return (<section className="bg-f5f5f5 padding-all minheight-100">
             <Row justify={"center"} >
                 <Col className="line-height-3r font-size-12" span={isPhone? 24: 20}>日历</Col>

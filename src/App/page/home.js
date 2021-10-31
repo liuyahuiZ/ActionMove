@@ -150,8 +150,8 @@ class HomeDoc extends Component {
         let typeDom = typeListArr&&typeListArr.length>0 ? typeListArr.map((itm, idx)=>{
             return (<Row><Col className="textclolor-333 margin-bottom-3r" key={`${idx}-article`}>
                 <Row justify={'center'} className='relative'>
-                    <Col className='textclolor-333 font-size-huge zindex-20 line-height-3r' >{itm.info.typeKey}</Col>
-                    <Col className='textclolor-333 font-size-small zindex-20 '>{itm.info.remark}</Col>
+                    <Col className='textclolor-333 font-size-huge zindex-20 line-height-3r padding-left-p2r' >{itm.info.typeKey}</Col>
+                    <Col className='textclolor-333 font-size-small zindex-20 margin-top-p4r padding-left-p2r'>{itm.info.remark}</Col>
                     <Col span={24} className="absolute top-0 left-0 border-radius-5f overflow-hide margin-top-1r heighr-6"><ImageBird imgName={itm.info.imgGroup} /></Col>
                     
                     <Col className='textclolor-333 margin-top-5r'>
@@ -181,7 +181,7 @@ class HomeDoc extends Component {
             </Col></Row>)
         }) : <LoadText loadTextStatus={typeloadStatus} refreshBack={()=>{}} ></LoadText>
         return(
-          <section className="bg-show images-all heighth-100 width-100 overflow-hide overflow-y-scroll" ref={(r) => { this.$$homeContainer = r; }}>
+          <section className="bg-show heighth-100 width-100 overflow-hide overflow-y-scroll scroller-thin" ref={(r) => { this.$$homeContainer = r; }}>
             <Header pathname={this.props.location.pathname} containerScrollTop={containerScrollTop} />
             <Row >
                 <Col className="relative heighth-100 zindex-10" >
@@ -202,15 +202,15 @@ class HomeDoc extends Component {
                             </Col>
                             <Col span={2}>
                                 <div className={'width-100'}><span className={"icon small icon-footer1"} /> </div>
-                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">求知</span></div>
+                                <div className={'width-100 text-align-right'}><span className="textcolor-fff font-size-8 opacity-8">求知</span></div>
                             </Col>
                             <Col span={2}>
                                 <div className={'width-100'}><span className={"icon small icon-footer2"} /> </div>
-                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">创新</span></div>
+                                <div className={'width-100 text-align-right'}><span className="textcolor-fff font-size-8 opacity-8">创新</span></div>
                             </Col>
                             <Col span={2}>
                                 <div className={'width-100'}><span className={"icon small icon-footer3"} /> </div>
-                                <div className={'width-100'}><span className="textcolor-fff font-size-8 opacity-8">回馈</span></div>
+                                <div className={'width-100 text-align-right'}><span className="textcolor-fff font-size-8 opacity-8">回馈</span></div>
                             </Col>
                             
                         </Row>

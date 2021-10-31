@@ -63,7 +63,7 @@ class Chat extends Component {
       let message = self.$$editor.getValue();
   
       if(!message&&message==='') {
-        Toaster.toaster({ type: 'normal', position: 'top', content: '请填写留言信息', time: 3000 }, true);
+        Toaster.toaster({ type: 'normal', position: 'top', content: '请填写信息', time: 3000 }, true);
         return false;
       }
       socketSendMessage(message, (res)=>{
@@ -71,7 +71,8 @@ class Chat extends Component {
         self.setState({
           messageText: '-'
         })
-      })
+      });
+      self.$$editor.setValue('');
     }
 
     render() {
@@ -100,9 +101,10 @@ class Chat extends Component {
         return(
           <section className="bg-f5f5f5" >
             <Row className="padding-all " justify='center'>
-                <Col span={isPhone? 24: 20} className='heighth-60 overflow-y-scroll padding-right-1r'>
-                <div className='width-100 display-inline-block text-align-center font-size-small textclolor-black-low'>当前在线人数（{nowAccount}）</div>
-                <Row className="margin-top-1r">{messageDom}</Row>
+                <Col><div className='width-100 display-inline-block text-align-center font-size-small textclolor-black-low'>当前在线人数（{nowAccount}）</div>
+                </Col>
+                <Col span={isPhone? 24: 20} className='heighth-50 overflow-y-scroll padding-right-1r margin-top-1r scroller-thin'>
+                <Row className="margin-top-1r message">{messageDom}</Row>
                 </Col>
                 <Col span={isPhone? 24: 20} className="bg-show margin-top-2 padding-top-1r overflow-hide padding-left-1r padding-right-1r padding-bottom-1r border-radius-5f content-dom" >
                   <Row className="" justify='center'>
