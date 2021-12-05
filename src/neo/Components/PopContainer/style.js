@@ -14,7 +14,7 @@ export default {
     backgroundColor: '#fff',
     fontSize: '1rem',
     minHeight: '10vh',
-
+    borderRadius: '0.5rem 0.5rem 0 0',
   },
   boxbg: {
     display: 'block',
@@ -25,7 +25,8 @@ export default {
     zIndex: '666',
     top: '0',
     left: '0',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    // backgroundColor: 'rgba(0,0,0,0.5)',
+    backdropFilter: 'blur(10px)',
   },
   container: {
     // display: 'inline-block',

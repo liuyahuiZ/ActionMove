@@ -37,9 +37,9 @@ function detailPop(itm, comment){
             <Col span={20} className="heighth-80 overflow-y-scroll padding-all-1r">
                 <Row justify={'center'}>
                     <Col className='textclolor-333 font-size-large margin-bottom-1r'>{itm.title}</Col>
-                    <Col span={18}><ImageBird imgName={itm.imgGroup}  /></Col>
+                    <Col span={24}><ImageBird imgName={itm.imgGroup}  /></Col>
                     <Col className='textclolor-black-low margin-top-1r'>作者 {itm.user} / 发布于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD')}  / 查看 {itm.sea} / 属于 {itm.type}</Col>
-                    <Col className='textclolor-333'><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
+                    <Col className='textclolor-333 article-content'><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
                 </Row>
                 <Row className="margin-top-3r">
                     <Col className="font-size-large textclolor-333">评论列表</Col>

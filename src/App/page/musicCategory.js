@@ -121,7 +121,7 @@ class MusicCategory extends BaseView {
                     }} />
                 </Col>
             </Row>
-            <Row className="content-dom padding-all padding-top-0 heighth-65 overflow-y-scroll">
+            <Row className="content-dom padding-all padding-top-0 heighth-67 overflow-y-scroll">
             {cateGoryDom}
             </Row>
             </Col></Row>

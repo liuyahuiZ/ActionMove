@@ -224,7 +224,7 @@ class HomeDoc extends Component {
                     <Row className={"margin-top-3r"} justify="center">
                         <Col span={17} className="content-dom">
                             <div className="width-100 textcolor-288767 text-align-center font-size-large">热门博客</div>
-                            <div className={`${activeNum > 0 ? 'bottom-in' : 'bottom-out'} font-size-9 line-height-1f margin-top-5r `}>
+                            <div className={`${activeNum > 0 ? 'bottom-in' : 'bottom-out'} font-size-9 line-height-1f margin-top-3r `}>
                                 <List articlesArr={articleListArr} loadStatus={loadStatus} />
                             </div>
                         </Col>

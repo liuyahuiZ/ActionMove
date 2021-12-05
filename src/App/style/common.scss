@@ -64,6 +64,9 @@ $animalr-list:1,2,3,6,9,10;
 }
 .border-radius-round{border-radius: 50%}
 .border-radius-5f{border-radius: 0.5rem;}
+.border-radius-top{
+   border-radius: 0.5rem 0.5rem 0 0;
+}
 /*border_all*/
 .border-all{border:1px solid;}
 .border-bottom{border-bottom:1px solid;}
@@ -140,7 +143,7 @@ $minheight-list:20,25,30,40,50,60,90,100;
 @each $minheight in $minheight-list{
 	.minheight-#{$minheight}{min-height:#{$minheight*1vh};}
 }
-$height-list-h:20,25,30,40,50,60,65,70,75,80,85,90,100,120,130;
+$height-list-h:20,25,30,40,50,60,65,67,70,75,80,85,90,100,120,130;
 @each $height in $height-list-h{
 	.heighth-#{$height}{height:#{$height*1vh};}
 }

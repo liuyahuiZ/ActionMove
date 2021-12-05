@@ -4,6 +4,7 @@ import { hashHistory } from 'react-router';
 import ImageMove from './imageMove';
 import { goLink, getHeaderClass } from '../utils/common';
 import { socketLogin } from '../servise/socketClient';
+import Light from './light';
 const { Row, Col, Icon, PopContainer, ExModal, AnTransition } = Components;
 
 const { sessions, storage } = utils;
@@ -69,7 +70,7 @@ class Header extends Component {
                 enter={'bottom-in'}
                 leave={'bottom-out'}
                 key={`${idx}-ops`}
-            ><Col span={24} key={`${idx}-men`} className={`${itm.path == `/${location}` ? 'menu-active':'menu-default'} transf text-align-center line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
+            ><Col span={24} key={`${idx}-men`} className={`${(itm.path == `/${location}` || itm.path ==  activeKey) ? 'menu-active':'menu-default'} transf text-align-center line-height-3r heighr-3 border-radius-9r margin-bottom-1r`}>
                 <div className={` textcolor-6C727C font-size-14 cursor-pointer border-radius-9r menu-hover`} 
                 style={itm.path == activeKey ? { 'textDecoration': 'line-through', 'fontSize': '160%' } : { 'fontSize': '140%' } }
                  onClick={()=>{ self.setState({'activeKey': itm.path});
@@ -82,10 +83,11 @@ class Header extends Component {
         }) : ''
 
         PopContainer.confirm({
-            content: (<div className="bg-262626 relative heighth-100">
+            content: (<div className=" relative heighth-100 overflow-hide">
                 <div className='width-100 text-align-right cursor-pointer' onClick={()=>{PopContainer.closeAll()}}>
                 <Icon iconName={'close-circled'} size={'200%'} iconColor={ '#fff'} /></div>
-              <Row className="padding-all textcolor-868686 bg-262626">
+                <Light />
+              <Row className="padding-all textcolor-868686 zindex-6 relative">
                 {menuDom}
               </Row>
               <AnTransition

@@ -90,7 +90,7 @@ class PayDoc extends Component {
         const { articleListArr, enableLoad, loadStatus, typeListArr, typeloadStatus, pageInfo, currentPage, pageSize, searchObg, activeType, isPhone } = this.state;
         const self = this;
         let typeDom = typeListArr&&typeListArr.length>0 ? typeListArr.map((itm, idx)=>{
-            return (<Col span={isPhone ? 10 : 6} className={` textclolor-333 margin-bottom-2r relative margin-right-1r padding-all-1r border-radius-5f overflow-hide cursor-pointer`} key={`${itm._id}-article`}
+            return (<Col span={isPhone ? 10 : 6} className={` textclolor-333 margin-bottom-1r relative margin-right-1r padding-all-1r border-radius-5f overflow-hide cursor-pointer`} key={`${itm._id}-article`}
             onClick={()=>{
                 let typeValue = itm.typeValue
                 let searchObg = { type: itm.typeValue}
@@ -117,12 +117,12 @@ class PayDoc extends Component {
         return(
         <Row justify='center'>
             <Col span={20} className="content-dom "><Row justify='center'>{typeDom}</Row></Col>
-            <Col span={14} className="margin-bottom-2r"><Search callBack={(k)=>{
+            <Col span={14} className="margin-bottom-2r margin-top-1r"><Search callBack={(k)=>{
                     console.log(k);
                     self.getArticleList({current: 1, pageSize: pageSize, searchObg: searchObg, keyWord: k});
                 }} /></Col>
             <Col span={18} className="content-dom"><List articlesArr={articleListArr} loadStatus={loadStatus} /></Col>
-            <Col span={isPhone? 20 : 14}><PageNation getData={(pageNum)=>{
+            <Col span={isPhone? 20 : 14} className="margin-bottom-2r"><PageNation getData={(pageNum)=>{
                 self.setState({
                     currentPage: pageNum
                 },()=>{ self.getArticleList({current: pageNum, pageSize: pageSize, searchObg: searchObg }) })
