@@ -737,4 +737,49 @@ p{
         margin: 0.6rem 0;
         border-radius: 0.5rem;
     }
+    code{
+        width: 100%;
+        overflow-x: scroll;
+        display: block;
+        background: #F5F7F9;
+        border-radius: 6px;
+    }
+}
+.detail-article-content{
+    font-size: 0.9rem;
+    padding: 1.3rem 1.3rem;
+    margin-top: 1.3rem;
+    h1{
+        font-size: 2rem
+    }
+    h2{
+        font-size: 1.8rem
+    }
+    h3{
+        font-size: 1.6rem
+    }
+    h4{
+        font-size: 1.5rem
+    }
+    h5{
+        font-size: 1.3rem;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+    }
+    p{
+        color: #343434;
+        line-height: 1.7rem;
+        font-size: 0.8rem;
+    }
+    img{
+        margin: 0.6rem 0;
+        border-radius: 0.5rem;
+    }
+    code{
+        width: 100%;
+        overflow-x: scroll;
+        display: block;
+        background: #F5F7F9;
+        border-radius: 6px;
+    }
 }

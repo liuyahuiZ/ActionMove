@@ -1,93 +1,81 @@
 import React , { Component }from 'react';
-import { Components } from 'neo';
-import { hashHistory } from 'react-router';
-import config from '../config/config';
-import fetch from '../servise/fetch';
+import { Components, utils } from 'neo';
 import { UrlSearch } from '../utils';
 import BaseView from '../core/app';
+import ImageBird from '../components/imageBird';
+import Commit from '../components/commit';
+import { articleDetail, articleMakeCommit } from '../api/article';
 
 const {
-    Buttons,
-    Toaster,
-    Header,
-    Item,
     Row,
     Col,
     Icon,
-    Modal,
-    Switch,
-    Collapse,
-    Panel
   } = Components;
-  
+const { date, sessions } = utils;
 class ArticleDetail extends BaseView {
     constructor(props) {
       super(props);
       this.state = {
-          article: {}
+          article: {},
+          comment: [],
+          isPhone: sessions.getStorage('screenWidth') < 800 
       };
     }
 
     setValue(key,val){
         this.setState({[key]: val});
     }
-    _viewAppear(){
-        this.getDetail();
-    }
-
     getDetail(){
-        // console.log(UrlSearch());
-        const self = this;
-        let obg = UrlSearch();
-        let reqbody={
-            "id" : obg.id,
-          }
-          fetch( config.ROOT_URL+ 'article/articleDetail', { method: 'GET', data: reqbody})
-          .then(data => {
-            //   console.log(data)
-              self.setValue('article', data.respBody[0])
+      const self = this;
+      let obg = UrlSearch();
+      articleDetail({ id: obg.id }).then((res)=>{
+        if(res.code=='0000'){
+          self.setState({
+            article: res.data.article || {},
+            comment: res.data.comment || []
           })
+        }else{
+          
+        }
+      }).catch((err)=>{
+          console.log('err',err)
+      })
     }
 
-    submitClick(){
+    componentDidMount(){
+      this.getDetail();
     }
         
 
     render() {
-        const {article} = this.state;
-        
+        const { article, comment, isPhone } = this.state;
+        const comentDom = comment&&comment.length>0?comment.map((itm, idx)=>{
+          return <Row className="textclolor-333 margin-bottom-3r">
+              <Col className='textclolor-black-low font-size-small margin-top-1r'>
+              <Icon iconName={'android-happy'} size={'190%'} iconColor={'#999'} /> <span className='font-size-large textclolor-333'>{itm.user||'--'}</span> / 评论于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD HH:mm:ss')} </Col>
+              <Col className='textclolor-333 font-size-normal'><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
+          </Row>
+      }): ''
         return(
-          <section className="bg-show">
-            <Header
-              leftContent={{
-                text: (<Icon iconName={'ios-arrow-back'} size={'180%'} iconColor={'#000'} />), style:{flex: '1.3',width: '23%', paddingLeft: '0.2rem'},
-                onClick: ()=>{hashHistory.goBack();}
-              }}
-              centerContent={{text: 'jssdk测试', style:{flex: '3.5'} }}
-              rightContent={{text:'', style:{flex: '1.5'}}}
-            />
-            <div className="has-header articles">
-            <Row className="padding-all-1r " justify="center">
-              <Col span={24} className="font-size-12 line-height-4r ">
-               {article.title}
-              </Col>
-              <Col span={24} className="font-size-8 textcolor-aeaeae">
-              {article.user} | {article.createTime}
-              </Col>
-              <Col className="margin-top-2 ">
-              {article.imgGroup ? <img className='width-100'
-                    src={`http://localhost:2019/files/getTheImage?path=${(article.imgGroup.filePath + '/'+article.imgGroup.fileName)}`}
-                /> : ''}
-              </Col>
-              
-              <Col span={24} className="margin-top-2 overflow-x-scroll" >
-                <div dangerouslySetInnerHTML={{__html: article.content}}></div>
-              </Col>
-            
+          <section className="">
+            <Row justify={'center'} className='padding-top-1r'>
+            {/* <Col className="padding-all border-bottom border-color-e5e5e5">{article.title}</Col> */}
+            <Col span={isPhone ? 23 :20} className="heighth-80 padding-all-1r">
+                <Row justify={'center'}>
+                    <Col className='textclolor-333 font-size-large margin-bottom-1r cursor-pointer'>{article.title}</Col>
+                    <Col span={24} className="border-radius-6 overflow-hide"><ImageBird imgName={article.imgGroup}  /></Col>
+                    <Col className='textclolor-black-low margin-top-1r'>作者 {article.user} / 发布于 {date.momentFormate(article.createTime, 'YYYY-MM-DD')}  / 查看 {article.sea} / 属于 {article.type}</Col>
+                    <Col className='textclolor-333 border-radius-6 detail-article-content bg-show'><div dangerouslySetInnerHTML={{__html: article.content}} /></Col>
+                </Row>
+                <Row className="margin-top-3r">
+                    <Col className="font-size-large textclolor-333">评论列表</Col>
+                    <Col className="margin-top-1r margin-bottom-2r"><Commit articleId={article._id} /></Col>
+                    {comentDom}
+                </Row>
+            </Col>
             </Row>
-            </div>
           </section>
         );
     }
 }
-export default OcrDoc;
+export default ArticleDetail;

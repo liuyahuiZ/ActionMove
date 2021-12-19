@@ -3,6 +3,7 @@ import { Components, utils } from 'neo';
 import ImageBird from '../components/imageBird';
 import Commit from '../components/commit';
 import { articleDetail, articleMakeCommit } from '../api/article';
+import { goLink } from './common';
 
 const { Row, Col, PopContainer, Toaster, Icon } = Components;
 const { sessions, date } = utils;
@@ -24,6 +25,7 @@ function mkCommit(itm){
     })
 }
 function detailPop(itm, comment){
+    const idPhone = sessions.getStorage('screenWidth') < 800 ;
     const comentDom = comment&&comment.length>0?comment.map((itm, idx)=>{
         return <Row className="textclolor-333 margin-bottom-3r">
             <Col className='textclolor-black-low font-size-small margin-top-1r'>
@@ -32,11 +34,17 @@ function detailPop(itm, comment){
         </Row>
     }): ''
     PopContainer.confirm({
-        content: (<Row justify={'center'} className='padding-top-1r'>
+        content: (<Row justify={'center'} className='padding-top-1r box-shadow'>
             {/* <Col className="padding-all border-bottom border-color-e5e5e5">{itm.title}</Col> */}
-            <Col span={20} className="heighth-80 overflow-y-scroll padding-all-1r">
+            <Col span={idPhone? 23 : 20} className='textclolor-333 padding-left-1r font-size-large margin-bottom-1r text-overflow cursor-pointer' onClick={()=>{ 
+                PopContainer.closeAll(); 
+                const timer = setTimeout(() => {
+                    goLink(`/ArticleDetail?id=${itm._id}`); 
+                }, 500);
+                return () => { clearTimeout(timer); };
+            }}>{itm.title}</Col>
+            <Col span={idPhone? 23 : 20} className="heighth-80 overflow-y-scroll padding-all-1r">
                 <Row justify={'center'}>
-                    <Col className='textclolor-333 font-size-large margin-bottom-1r'>{itm.title}</Col>
                     <Col span={24}><ImageBird imgName={itm.imgGroup}  /></Col>
                     <Col className='textclolor-black-low margin-top-1r'>作者 {itm.user} / 发布于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD')}  / 查看 {itm.sea} / 属于 {itm.type}</Col>
                     <Col className='textclolor-333 article-content'><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
