@@ -35,9 +35,11 @@ class OcrDoc extends Component {
         const self = this;
         fetch( config.ROOT_URL+ 'wx/getWebAccessToken', { method: 'POST', data: {
             code: code
-        }}).then(data => {
-          console.log(data)
-          Modal.alert({ title: '用户信息',
+        }}).then(res => {
+          console.log(res)
+          if(res.code==='0000'){
+            const data = res.data;
+            Modal.alert({ title: '用户信息',
               content: JSON.stringify(data),
               btn: {
                 text: '确定',
@@ -49,8 +51,10 @@ class OcrDoc extends Component {
           () => { console.log('nult callback'); });
         //   Toaster.toaster({ type: 'success', position: 'top', content: JSON.stringify(data), time: 5000 });
           self.setState({
-            userInfo: JSON.parse(data.respBody)
+            userInfo: data
           })
+          }
+          
         })
     }
 

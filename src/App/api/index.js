@@ -186,3 +186,15 @@ export function messagesList(reqbody){
         })
     })
 }
+
+
+export function createSign(reqbody){
+    return new Promise((resolve, reject)=>{
+        fetch(config.ROOT_URL+ 'wx/sign',{ method: 'POST', data: reqbody})
+        .then(data => {
+            resolve(data)
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}

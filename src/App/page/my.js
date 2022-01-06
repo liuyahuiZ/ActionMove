@@ -65,12 +65,26 @@ class OcrDoc extends Component {
       })
   }
 
+  wxCheck(){
+    let wxConfig = sessions.getStorage('WXCONFIG');
+    let url = window.location.href.split('#')[0] + '#/AccessAuthor'
+    let reditUrl = encodeURIComponent(url); //config.REDIRECT_URL
+    // let reditUrl = "https%3A%2F%2Ftest-jbsg.91dbq.com%2Fwx-h5%2F%23%2FAccessAuthor";
+    let appId = wxConfig.appId;
+    if (storage.getStorage('userInfo')) {
+      // this.goLink('/PersonalFiles');
+    } else {
+      window.location.href=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${reditUrl}&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect`;
+    }
+  }
     checkUser(){
       const { userInfo } = this.state;
       if(!(userInfo&&userInfo.phone)) {
         goLink('/Registor');
+        this.wxCheck();
       }
     }
+
 
     submitClick(){
         Modal.alert({ title: 'warning',

@@ -8,6 +8,7 @@ import '../style/font.scss';
 import Static from './static';
 import Header from '../components/Header';
 import { ListContext } from  'context';
+import { getSign } from '../utils/wx';
 import { Provider, KeepAlive } from 'react-keep-alive'
 const { Button, PageTransition, ErrorBounDary } = Components;
 const { HeaderPart } = Parts
@@ -40,6 +41,10 @@ class LayOut extends Component {
             titleArr: histArr,
             moving: false,
         }) 
+        const wxConfig = sessions.getStorage('WXCONFIG')
+        if(!wxConfig) {
+            getSign(); 
+        }
     }
     componentWillReceiveProps(nextProps, nextContext) {
         const { moving, historyArr } = this.state;
