@@ -301,6 +301,9 @@ $position-map: (
    box-shadow:  0px 0px 25px 0px rgba(0, 0, 0, 0.05)
 }
 
+.backdrop-filter-5{
+   backdrop-filter: blur(5px);
+}
 /*text-color*/
 @each $textname,$color in (textclolor-red,#fd5023),(textclolor-black,#000),(textclolor-black-low,#999),(textclolor-333,#333),(textclolor-white,#fff),(textclolor-gray,#ccc),(textclolor-gray-red,#fc9378),(textclolor-blue-white,#66ccf5),(textclolor-blue,#9db9c5),(textclolor-green,#38c49f),(textclolor-666,#666),(textclolor-333,#333),(textclolor-alink,#2391e5),(textcolor-bg,#50afd6),(textcolor-yellow,#ffe082),(textcolor-quan-red,#f1483a),(textcolor-quan-gold,#ffa439),(textcolor-quan-brown,#dbb181),(textcolor-quan-detail,#8b501a),(textcolor-407b99,#407b99),(textcolor-be8116,#be8116),(textcolor-51b0d6,#51b0d6),(textcolor-ea3a3a,#ea3a3a),(textcolor-ff9b27,#ff9b27),(textcolor-2d2d2d,#2d2d2d),(textcolor-0076FF,#0076FF),(textcolor-aeaeae,#aeaeae),(textcolor-8EBF66, #9eea6a),
 (textcolor-79EF44,#79EF44),(textcolor-313132,#313132),(textcolor-DF1B2E,#DF1B2E),(textcolor-F2432A,#F2432A),(textcolor-4698F9,#4698F9),(textcolor-855EF1,#855EF1),(textcolor-7039F8,#7039F8),(textcolor-FC5C4B,#FC5C4B),

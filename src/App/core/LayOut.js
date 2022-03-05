@@ -8,7 +8,7 @@ import '../style/font.scss';
 import Static from './static';
 import Header from '../components/Header';
 import { ListContext } from  'context';
-import { getSign } from '../utils/wx';
+import { getSign, wxConfigAction } from '../utils/wx';
 import { Provider, KeepAlive } from 'react-keep-alive'
 const { Button, PageTransition, ErrorBounDary } = Components;
 const { HeaderPart } = Parts
@@ -44,6 +44,8 @@ class LayOut extends Component {
         const wxConfig = sessions.getStorage('WXCONFIG')
         if(!wxConfig) {
             getSign(); 
+        } else {
+            wxConfigAction(wxConfig);
         }
     }
     componentWillReceiveProps(nextProps, nextContext) {

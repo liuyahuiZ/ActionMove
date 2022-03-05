@@ -47,6 +47,9 @@ export default class PageTransition extends React.Component {
     }
     const { enter, leave } = this.props;
     const el = this.element;
+    this.setState({
+      act: 'enter'
+    })
     addClass(el, leave);
     setTimeout(() => {
       removeClass(el, leave);
@@ -58,6 +61,9 @@ export default class PageTransition extends React.Component {
     const { leave, enter } = this.props;
     const el = this.element;
     addClass(el, enter);
+    this.setState({
+      act: 'leave'
+    })
     setTimeout(() => {
       removeClass(el, enter);
       addClass(el, leave);

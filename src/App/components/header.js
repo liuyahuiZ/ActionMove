@@ -127,7 +127,7 @@ class Header extends Component {
                     onClick={()=>{this.doSheet1()}}/> */}
                 </Col>
                 <Col span={12} className='text-align-center'>
-                   <ImageMove  className={`middle-round-6 display-inline-block ${containerScrollTop > 500 ? 'hide-in': 'hide-out'}`} imgName='logo_b.png' />
+                   <ImageMove  className={`middle-round-6 display-inline-block backdrop-filter-5 border-radius-round ${containerScrollTop > 500 ? 'hide-in': 'hide-out'}`} imgName='logo_b.png' />
                 </Col>
                 <Col span={6} className="relative text-align-right padding-top-1r zindex-20 cursor-pointer" onClick={()=>{this.doSheet1(screenWidth)}}>
                     { containerScrollTop > 500 ? <Icon iconName={'navicon '} size={'240%'} iconColor={"#333"}  />: 

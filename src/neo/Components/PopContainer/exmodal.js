@@ -58,7 +58,7 @@ class ExModal extends Component {
   render() {
     const self = this;
     const { options, action, display, hideDom } = this.state;
-    // console.log('action', action)
+    console.log('action', action, display)
     const contbg = display==='show' ? (<Transition
       act={action}
       duration={166}
@@ -70,12 +70,13 @@ class ExModal extends Component {
       self.rmMsg();
     }} /></Transition>) : '';
 
-    const cellDom = display=='show' ? <PageTransition
+    const cellDom = <PageTransition
       act={action}
       duration={166}
       enter={`actionSheet-${options.type}enter`}
       leave={`actionSheet-${options.type}leave`}
-    ><div className="scroller" style={Object.assign({}, display=='show' ? styles.show : styles.hide ,styles.cont, options.containerStyle)}>{options.content}</div></PageTransition>: '';
+      disable={true}
+    ><div className="scroller" style={Object.assign({}, display=='show' ? styles.show : styles.hide ,styles.cont, options.containerStyle)}>{options.content}</div></PageTransition>;
 
     return (
       <div style={Object.assign({}, styles.container) } className="transi">
