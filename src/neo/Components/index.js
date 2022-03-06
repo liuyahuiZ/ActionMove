@@ -15,6 +15,8 @@ import Loading from './Loading';
 import Dynamic from './Dynamic';
 import Loader from './Loader';
 import Image from './Image';
+import Video from './Video';
+import Audio from './Video/audio';
 import Loade from './Loader/loade';
 import Tab from './Tab';
 import Grid from './Grid';
@@ -116,6 +118,8 @@ export {
   List,
   Item,
   Image,
+  Video,
+  Audio,
   Search,
   ActionSheet,
   PopSelect,

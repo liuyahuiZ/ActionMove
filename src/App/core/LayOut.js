@@ -120,6 +120,7 @@ class LayOut extends Component {
         }
         
         let ZIndex = 5;
+        // has-header
         const components = compontArr.map((item, idx) => {
             return (<PageTransition
                 disable={ compontArr.length === 1 ? false : true }
@@ -128,7 +129,7 @@ class LayOut extends Component {
                 leave={ (compontArr.length ==1) ? actionArr[idx].enter : actionArr[idx].leave}
                 key={`${item.props.location.pathname}-com`}
                 >
-                <div className={`pageContent ${item.props.location.pathname !=='/Home' ? 'has-header': ''} transf pages scroller-thin`} style={{zIndex: ZIndex + idx}}>{item}</div>
+                <div className={`pageContent ${item.props.location.pathname !=='/Home' ? '': ''} transf pages scroller-thin`} id="layoutContent" style={{zIndex: ZIndex + idx}}>{item}</div>
                 </PageTransition>);
         });
         return(
@@ -138,9 +139,7 @@ class LayOut extends Component {
                     value={{
                     }}
                 >
-                <Provider><KeepAlive name={this.props.location.pathname|| 'home'}>
                 <ErrorBounDary>{components}</ErrorBounDary>
-                </KeepAlive></Provider>
               </ListContext.Provider >
                 {/* <div className="pageContent transf">{this.props.children}</div> */}
             </div>

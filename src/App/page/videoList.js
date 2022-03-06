@@ -1,12 +1,12 @@
 import React , { Component }from 'react';
 import { Components, utils } from 'neo';
-import { articleList, typeList } from '../api/article';
+import { articleList, typeList } from '../api/video';
 import LoadText from '../components/LoadText';
 import ImageBird from '../components/imageBird';
 import Search from '../components/music/search';
 import PageNation from '../components/pageNation';
 import { showArticleDetail } from '../utils/domUtil';
-import List from '../components/list';
+import List from '../components/videolist';
 const {
     Toaster,
     Row,
@@ -115,13 +115,15 @@ class PayDoc extends Component {
         }) : <LoadText loadTextStatus={typeloadStatus} refreshBack={()=>{this.getTypeList()}} ></LoadText>
 
         return(
-        <Row justify='center'>
+        <Row justify='center' className="padding-top-2r">
             <Col span={20} className="content-dom "><Row justify='center'>{typeDom}</Row></Col>
             <Col span={14} className="margin-bottom-2r margin-top-1r"><Search callBack={(k)=>{
                     console.log(k);
                     self.getArticleList({current: 1, pageSize: pageSize, searchObg: searchObg, keyWord: k});
                 }} /></Col>
-            <Col span={18} className="content-dom"><List articlesArr={articleListArr} loadStatus={loadStatus} /></Col>
+            <Col span={23} className="content-dom">
+                <List articlesArr={articleListArr} loadStatus={loadStatus} />
+            </Col>
             <Col span={isPhone? 20 : 14} className="margin-bottom-2r"><PageNation getData={(pageNum)=>{
                 self.setState({
                     currentPage: pageNum
