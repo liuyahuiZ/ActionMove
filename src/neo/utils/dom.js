@@ -92,7 +92,7 @@ export function getLineHeight(origin) {
   el.style.minHeight = 'inherit';
   origin.parentNode.appendChild(el);
   const lineHeight = el.clientHeight;
-  origin.parentNode.removeChild(el);
+  // origin.parentNode.removeChild(el);
 
   return lineHeight;
 }

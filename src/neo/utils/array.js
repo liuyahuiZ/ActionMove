@@ -131,3 +131,12 @@ export function getItemForKey(arr, key, keyName) {
   }
   return item;
 }
+
+export  function arrToObg(arr, key, value){
+  if(!(arr&&arr.length)) {return []}
+  let obg = {}
+  for(let i=0;i<arr.length;i++){
+      obg[arr[i][key]] = arr[i][value] 
+  }
+  return obg;
+}

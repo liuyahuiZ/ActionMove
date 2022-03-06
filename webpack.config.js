@@ -15,12 +15,12 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'dist'),
     proxy: {
       '/music': {
-        target: 'http://localhost:3001/',
+        target: 'http://www.wetalks.cn/music',
         changeOrigin: true,
         pathRewrite: {'^/music' : ''}
       },
       '/nodeApi': {
-        target: 'http://localhost:2019',
+        target: 'http://www.wetalks.cn/nodeApi',
         changeOrigin: true,
         pathRewrite: {'^/nodeApi' : '/'}
       }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import wangEditor from 'wangEditor';
+import wangEditor from 'wangeditor';
 
 class Editor extends Component {
   constructor(props) {

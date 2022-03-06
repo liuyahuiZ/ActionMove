@@ -119,6 +119,12 @@ const MyCenter = (location, cb) => {
   },'MyCenter')
 };
 
+const VideoList = (location, cb) => {
+  require.ensure([], require => {
+      cb(null, require('./page/videoList').default)
+  },'VideoList')
+};
+
 class MyRouter extends Component{
   constructor(props) {
     super(props);

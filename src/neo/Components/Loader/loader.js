@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styles from './style';
 import '../Style/loader.scss';
 
@@ -36,14 +36,8 @@ class Loader extends Component {
 
     return (
       <div >
-        <ReactCSSTransitionGroup
-          transitionName="carousel"
-          transitionEnterTimeout={400}
-          transitionLeaveTimeout={400}
-        >
-          {cell}
-          {contbg}
-        </ReactCSSTransitionGroup>
+        {cell}
+        {contbg}
       </div>
     );
   }
