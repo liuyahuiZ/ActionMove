@@ -2,7 +2,6 @@ import React , { Component }from 'react';
 import { Components, utils } from 'neo';
 import { UrlSearch } from '../utils';
 import BaseView from '../core/app';
-import ImageBird from '../components/imageBird';
 import Video from '../components/video';
 import { articleDetail, articleMakeCommit } from '../api/video';
 
@@ -73,19 +72,18 @@ class ArticleDetail extends BaseView {
 
     render() {
         const { article, comment, isPhone, hasTransForm, style } = this.state;
-        const comentDom = comment&&comment.length>0?comment.map((itm, idx)=>{
-          return <Row className="textclolor-333 margin-bottom-3r">
-              <Col className='textclolor-black-low font-size-small margin-top-1r'>
-              <Icon iconName={'android-happy'} size={'190%'} iconColor={'#999'} /> <span className='font-size-large textclolor-333'>{itm.user||'--'}</span> / 评论于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD HH:mm:ss')} </Col>
-              <Col className='textclolor-333 font-size-normal'><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
-          </Row>
-         }): ''
+        // const comentDom = comment&&comment.length>0?comment.map((itm, idx)=>{
+        //   return <Row className="textclolor-333 margin-bottom-3r">
+        //       <Col className='textclolor-black-low font-size-small margin-top-1r'>
+        //       <Icon iconName={'android-happy'} size={'190%'} iconColor={'#999'} /> <span className='font-size-large textclolor-333'>{itm.user||'--'}</span> / 评论于 {date.momentFormate(itm.createTime, 'YYYY-MM-DD HH:mm:ss')} </Col>
+        //       <Col className='textclolor-333 font-size-normal'><div dangerouslySetInnerHTML={{__html: itm.content}} /></Col>
+        //   </Row>
+        //  }): ''
         return(
           <Row justify={'center'} align={"center"}
-            className='absolute heightp-100'
+            className='absolute width-100 heightp-100'
             style={hasTransForm ? style : {}} >
-            <Video souceUrl={article.info} >
-              <>
+            {article && article.info && <Video souceUrl={article.info} >
               <Row className="absolute share-content" justify="center" direction="column">
                 <Col><Icon iconName='ios-heart ' iconColor="#fff" size="200%" /></Col>
                 <Col className="font-size-small textcolor-fff">赞</Col>
@@ -98,8 +96,7 @@ class ArticleDetail extends BaseView {
                 {/* <Col span={24} className="border-radius-6 overflow-hide"><ImageBird imgName={article.imgGroup}  /></Col> */}
                 <Col className='textcolor-fff font-size-small'>作者 {article.user} / 发布于 {date.momentFormate(article.createTime, 'YYYY-MM-DD')}  / 查看 {article.sea} / 属于 {article.type}</Col>
               </Row>
-              </>
-            </Video>
+            </Video>}
             {/* <Col className="padding-all border-bottom border-color-e5e5e5">{article.title}</Col> */}
               {/* <Row className="margin-top-3r">
                   <Col className="font-size-large textclolor-333">评论列表</Col>

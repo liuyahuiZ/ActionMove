@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import { addClass, removeClass } from '../utils/dom';
@@ -76,7 +76,7 @@ export default class PageTransition extends React.Component {
     //   transitionDuration: `${duration}ms`,
     // };
     this.duration = duration;
-    return cloneElement(children);
+    return React.cloneElement(children);
   }
 }
 

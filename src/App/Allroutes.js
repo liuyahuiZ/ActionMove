@@ -140,7 +140,7 @@ class MyRouter extends Component{
     <Router history={hashHistory}>
       <Route path={'/'} component={LayOut} >
         {/* <IndexRoute component={ListDoc} /> */}
-        <IndexRedirect to="/Home"/>
+        <IndexRedirect to="/VideoList"/>
         <Route path={'Home'} component={Home} />
         <Route path={'Demo'} getComponent={DomeDoc} />
         <Route path={'Tab'} getComponent={TabDoc} />

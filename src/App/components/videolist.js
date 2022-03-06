@@ -25,7 +25,10 @@ class List extends Component {
     }
 
     showArticleDetail(itm) {
-        goLink(`/VideoDetail?id=${itm._id}`); 
+        const timer = setTimeout(() => {
+            goLink(`/VideoDetail?id=${itm._id}`); 
+        }, 500);
+        return () => { clearTimeout(timer); };
     }
 
     render() {

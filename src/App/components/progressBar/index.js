@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { throttle } from '../../utils/throttle';
-import './index.scss';
 
 // interface ProgressBarProps {
 //   enableDrag?: boolean;
@@ -9,9 +8,7 @@ import './index.scss';
 //   hasTransForm?: boolean;
 //   containerStyle?: any;
 // }
-
-class ProgressBar extends React.Component {
-
+class ProgressBar extends Component {
   constructor(props) {
     super(props);
     this.state= {

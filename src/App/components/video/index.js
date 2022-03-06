@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { Components, utils } from 'neo';
-import ProgressDrag from '../progressBar';
-const { Row, Col, Icon } = Components;
-import './index.scss';
+import { Components } from 'neo';
+import ProgressBar from '../progressBar';
+const { Icon } = Components;
 
 class Video extends Component {
   constructor(props) {
@@ -52,7 +51,17 @@ class Video extends Component {
   play(){
     const curVideo = this.$$video;
     console.log('curVideo', curVideo);
-    curVideo && curVideo.play();
+    const promise = curVideo && curVideo.play();
+    if (promise !== undefined) {
+      promise.then(_ => {
+        this.setState({
+          playStatus: 'PLAY'
+        })
+      }).catch(error => {
+        // Autoplay was prevented.
+        // Show a "Play" button so that user can start playback.
+      });
+    }
     this.setState({
       playStatus: 'PLAY'
     })
@@ -101,7 +110,7 @@ class Video extends Component {
         self.setState({
           playStatus: 'PAUSE',
           duration: curVideo.duration
-        })
+        })        
       });
       curVideo.addEventListener('loadedmetadata', () => {
         console.log('this.video loadedmetadata =====', curVideo.currentTime);
@@ -120,6 +129,7 @@ class Video extends Component {
           console.log('old currentTime', currentTime);
           self.playBySeconds(currentTime);
         }
+        self.play();
       });
       curVideo.addEventListener('pause', () => {
         console.log('this.video pause =====', curVideo.currentTime);
@@ -223,7 +233,7 @@ class Video extends Component {
         </div>
         {this.props.children}
         <div className="absolute progress">
-          <ProgressDrag 
+          <ProgressBar
             defaultPercent={Number(this.fixedStr(current))/Number(this.fixedStr(duration))} 
             onPercentChange={(v)=>{ console.log(v); this.changeCurrentTime(v); }} 
             hasTransForm={hasTransForm}

@@ -21,7 +21,7 @@ class PayDoc extends Component {
       this.state = {
           enableLoad: 'canload',
           currentPage: 1,
-          pageSize: 5,
+          pageSize: 20,
           articleListArr: [],
           loadStatus: 'LOADING', //'LOADING', 'ERROR', 'SUCCESS', 'NODATA',
           typeListArr: [],
